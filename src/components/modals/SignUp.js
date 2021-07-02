@@ -1,17 +1,21 @@
-import React,{useState} from 'react';
-import {FaFacebookSquare} from 'react-icons/fa'
+import React,{useState, useEffect} from 'react';
+import {FaFacebookSquare, FaRegLightbulb} from 'react-icons/fa'
 import {FcGoogle} from 'react-icons/fc'
 import {CgCloseO} from 'react-icons/cg'
+import {useSelector} from 'react-redux'
 
 import {addUser} from '../../actions/ActionWithProduct'
-import {
-  LOADING_MODAL
-} from '../../constant/constants'
 
 import { useDispatch } from 'react-redux';
 
+import LoadingModal from './LoadingModal';
+
+
 const SignUp = ({closeModal, showSignUp, handleClick}) => {
   const [valueSignUp, setValueSignUp] = useState({email:'', password:'', re_password:''})
+  const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false)
+  const isLogin = useSelector(state => state.lo.isLogin);
 
   const dispatch = useDispatch();
 
@@ -27,9 +31,9 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
     e.preventDefault()
     if(valueSignUp.email !== '' && valueSignUp.password !== "" && valueSignUp.re_password !== ""){
       if(valueSignUp.password !== valueSignUp.re_password){
-        alert('mat khau khong trung khop')
+        setMessage('Mật khẩu không trùng')
       }else{
-        dispatch({type:LOADING_MODAL})
+        setLoading(true)
         const id_random = new Date().getTime().toString()
         const user = {
           idUser: id_random.substr(8),
@@ -42,19 +46,25 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
           img:''
         }
         dispatch(addUser(user))
-        setValueSignUp({name:'',password:'',re_password:''})
+        setValueSignUp({email:'',password:'',re_password:''})
+        setMessage('')
         closeModal()
       }
     }
     else{
-      alert('nhap day du cac truong')
+      setMessage('Hãy nhập đầy đủ thông tin')
     }
   }
 
+  useEffect(() => {
+    if(isLogin === true){
+      setLoading(false)
+    }
+  }, [isLogin]);
 
 
   return (
-    <>
+    <div className='form-container'>
       {/* <!-- register form --> */}
       <form className={`auth-form ${showSignUp ? 'auth-form__signUp--show':null}`} onSubmit={handleSubmitSignUp}>
         <button type='button' onClick={closeModal} className='auth-form__btn-close'><i><CgCloseO/></i></button>
@@ -64,6 +74,7 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
             <span onClick={handleClick} className="auth-form__switch-btn">Đăng nhập</span>
           </div>
           <div className="auth-form__form">
+            <div className={`auth-form__form-message ${message !== '' ? 'auth-form__form-message--active' : null}`}><FaRegLightbulb/> {message}</div>
             <div className="auth-form__group">
               <input 
                 name='email' 
@@ -118,7 +129,8 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
           </a>
         </div>
     </form> 
-  </>
+    { loading ? <LoadingModal/> : null}
+  </div>
   );
 };
 

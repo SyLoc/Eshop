@@ -20,8 +20,6 @@ export const CLOSE_MODAL = 'CLOSE_MODAL'
 
 export const ADD_CUSTOMER = 'ADD_CUSTOMER'
 
-export const LOADING_MODAL = 'LOADING_MODAL'
-
 export const LOGIN = 'LOGIN'
 
 export const LOGOUT = 'LOGOUT'

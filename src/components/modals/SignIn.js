@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import {FaFacebookSquare} from 'react-icons/fa'
+import {FaFacebookSquare, FaRegLightbulb} from 'react-icons/fa'
 import {FcGoogle} from 'react-icons/fc'
 import {CgCloseO} from 'react-icons/cg'
 import {getAll_User} from '../../actions/ActionWithProduct'
@@ -9,10 +9,15 @@ import {
   LOGIN
 }from '../../constant/constants'
 
+import LoadingModal from './LoadingModal';
 
-const SignIn = ({closeModal, showSignIn, handleClick, setLoading}) => {
+
+const SignIn = ({closeModal, showSignIn, handleClick}) => {
 
   const [valueSignIn, setValueSignIn] = useState({email:'', password:''})
+  const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false)
+
   const dispatch = useDispatch();
 
   const onchangeInputSignIn = (e) =>{
@@ -35,17 +40,20 @@ const SignIn = ({closeModal, showSignIn, handleClick, setLoading}) => {
           let loginFail = true
           arr.map((item) =>{
             if(item.email === valueSignIn.email && item.password === valueSignIn.password){
-              alert('dang nhap thanh cong')
-              closeModal()
+              setMessage('Đăng nhập thành công')
+              setValueSignIn({email:"", password:""})
               loginFail = false
+              setMessage('')
+              closeModal()
             }
           })
           if(loginFail){
-            alert("dang nhap thanh bai, xin moi nhap lai")
+            setMessage("Đăng nhập thất bại, xin mời nhập lại")
+            setValueSignIn({...valueSignIn, password:""})
           }
         })
     }else{
-      alert('hay nhap day du cac truong')
+      setMessage('Hãy nhập đầy đủ thông tin')
     }
   }
 
@@ -58,7 +66,7 @@ const SignIn = ({closeModal, showSignIn, handleClick, setLoading}) => {
   }, []);
 
   return (
-    <>
+    <div className='form-container'>
       {/* <!-- login form --> */}
       <form className={`auth-form ${ showSignIn ? 'auth-form__signIn--show':null}`} onSubmit={handleSubmit}>
         <button type='button' onClick={closeModal} className='auth-form__btn-close'><i><CgCloseO/></i></button>
@@ -68,6 +76,7 @@ const SignIn = ({closeModal, showSignIn, handleClick, setLoading}) => {
             <span onClick={handleClick} className="auth-form__switch-btn">Đăng ký</span>
           </div>
           <div className="auth-form__form">
+            <div className={`auth-form__form-message ${message !== '' ? 'auth-form__form-message--active' : null}`}><FaRegLightbulb/> {message}</div>
             <div className="auth-form__group">
               <input 
                 type="email" 
@@ -114,7 +123,8 @@ const SignIn = ({closeModal, showSignIn, handleClick, setLoading}) => {
           </a>
         </div>
       </form>
-    </>
+      { loading ? <LoadingModal/> : null}
+    </div>
   );
 };
 

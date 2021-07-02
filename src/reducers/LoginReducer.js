@@ -2,7 +2,6 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   ADD_CUSTOMER,
-  LOADING_MODAL,
   LOGIN,
   LOGOUT
 }from '../constant/constants'
@@ -13,7 +12,6 @@ const initialState = {
   modalContent:'',
   isLogin:false,
   infoCustomer:{name:'',email:'',img:''},
-  loadingModal:false
 }
 
 const LoginReducer = (state = initialState, action) => {
@@ -41,13 +39,7 @@ const LoginReducer = (state = initialState, action) => {
       return {
         ...state,
         infoCustomer: infoUser,
-        loadingModal:false,
         isLogin:true,
-      }
-    case LOADING_MODAL:
-      return {
-        ...state,
-        loadingModal:true
       }
     case LOGIN:
       return {

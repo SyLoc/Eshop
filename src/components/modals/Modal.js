@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import '../../index.css'
-import Loading from '../Loading';
+import "./modal.css"
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
@@ -14,12 +13,10 @@ const Modal = () => {
   const [showModal, setShowModal] = useState(false)
   const [showSignIn, setShowSignIn] = useState(false)
   const [showSignUp, setShowSignUp] = useState(false)
-  const [loading, setLoading] = useState(false)
 
 
   const openModal = useSelector(state => state.lo.openModal);
   const modalContent = useSelector(state => state.lo.modalContent);
-  const loadingModal = useSelector(state => state.lo.loadingModal);
   const dispatch = useDispatch();
 
   const closeModal = () =>{
@@ -50,13 +47,7 @@ const Modal = () => {
     handleOpenModal(modalContent)
   }, [openModal,modalContent]);
 
-  useEffect(() => {
-    setLoading(loadingModal)
-  }, [loadingModal]);
 
-  if(loading){
-    return <Loading/>
-  }
 
   return (
     <section className={`modal ${showModal ? 'modal--show':null}`}>
@@ -67,7 +58,6 @@ const Modal = () => {
         showSignIn={showSignIn}
         closeModal={closeModal}
         handleClick={handleClick}
-        setLoading={setLoading}
         />
       
       <SignUp 
