@@ -109,15 +109,21 @@ html{
 
 /* Modal */
 
+
 .modal{
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 10;
   display: flex;
   animation: fadeIn linear .1s;
   display: none;
+}
+
+.modal--show{
+  display: block;
 }
 
 .modal__overlay{
@@ -125,17 +131,20 @@ html{
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, .4);
-  z-index: 1;
 }
 
 .modal__body{
+  width: 100%;
+  height: 100%;
   --growth-from: .7;
   --growth-to: 1;
   margin: auto;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
   position: relative;
   z-index: 2;
   animation: growth linear .1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -249,6 +258,7 @@ html{
   text-decoration: none;
   font-size: 1.4rem;
   color: var(--text-color);
+  cursor: pointer;
 }
 
 .select-input__item-btn:hover{

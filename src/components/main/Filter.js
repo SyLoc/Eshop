@@ -87,11 +87,11 @@ const Filter = () => {
 
         <ul className="select-input__list">
           <li className={`select-input__item ${priceLowtoHigh ? 'select-input__item--active' : null}`}>
-            <button onClick={() => handleFilterPrice('LowtoHigh')} className="select-input__item-btn">Giá: Thấp đến cao</button>
+            <a onClick={() => handleFilterPrice('LowtoHigh')} className="select-input__item-btn">Giá: Thấp đến cao</a>
             <i className="select-input__item-icon"><FaCheck/></i>
           </li>
           <li className={`select-input__item ${priceHightoLow ? 'select-input__item--active' : null}`}>
-            <button onClick={() => handleFilterPrice('HightoLow')} className="select-input__item-btn">Giá: Cao đến thấp</button>
+            <a onClick={() => handleFilterPrice('HightoLow')} className="select-input__item-btn">Giá: Cao đến thấp</a>
             <i className="select-input__item-icon"><FaCheck/></i>
           </li>
         </ul>

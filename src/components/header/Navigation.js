@@ -1,7 +1,26 @@
 import React from 'react';
 import {FaFacebook, FaInstagram, FaRegBell, FaRegQuestionCircle } from 'react-icons/fa'
+import { useDispatch,useSelector} from 'react-redux';
 
-const Navigation = () => {
+import {OPEN_MODAL, LOGOUT} from '../../constant/constants'
+
+const Navigation = () => { 
+  const dispatch = useDispatch();
+  const isLogin = useSelector(state => state.lo.isLogin);
+  const infoCustomer = useSelector(state => state.lo.infoCustomer);
+
+  const handleSignIn = (value) =>{
+    dispatch({type: OPEN_MODAL, payload: value})
+  }
+
+  const handleSignUp = (value) =>{
+    dispatch({type: OPEN_MODAL, payload: value})
+  }
+
+  const logOut = () =>{
+    dispatch({type: LOGOUT})
+  }
+
   return (
     <article className="header__navbar">
       <ul className="header__navbar-list">
@@ -96,30 +115,39 @@ const Navigation = () => {
             Trợ giúp
           </a>
         </li>
-        {/* <li className="header__navbar-item header__navbar-item--bold header__navbar-item--separation">Đăng nhập</li>
-        <li className="header__navbar-item header__navbar-item--bold">Đăng ký</li> */}
-
-        <li className="header__navbar-item header__navbar-user">
-          <img src="https://i.pinimg.com/originals/ad/e5/e4/ade5e4933411e182bc6f9a92418bdfde.jpg" alt="avatar" className="header__navbar-user-avatar"/>
-          <span className="header__navbar-user-name">
-            Trần Sỹ Lộc
-          </span>
-
-          <ul className="header__navbar-user-menu">
-            <li className="header__navbar-user-item">
-              <a href="/error">Tài khoản của tôi</a>
-            </li>
-            <li className="header__navbar-user-item">
-              <a href="/error">Địa chỉ của tôi</a>
-            </li>
-            <li className="header__navbar-user-item">
-              <a href="/error">Đơn mua</a>
-            </li>
-            <li className="header__navbar-user-item">
-              <a href="/error">Đăng xuất</a>
-            </li>
-          </ul>
-        </li>
+        {
+          isLogin ? 
+          (
+            <li className="header__navbar-item header__navbar-user">
+              <img src="https://png.pngtree.com/png-vector/20190618/ourlarge/pngtree-personalpersonalizationprofileuser-abstract-circle-backgro-png-image_1489146.jpg" alt="avatar" className="header__navbar-user-avatar"/>
+              <span className="header__navbar-user-name">
+                {infoCustomer.email}
+              </span>
+  
+              <ul className="header__navbar-user-menu">
+                <li className="header__navbar-user-item">
+                  <a href="/error">Tài khoản của tôi</a>
+                </li>
+                <li className="header__navbar-user-item">
+                  <a href="/error">Địa chỉ của tôi</a>
+                </li>
+                <li className="header__navbar-user-item">
+                  <a href="/error">Đơn mua</a>
+                </li>
+                <li className="header__navbar-user-item">
+                  <button onClick={logOut}>Đăng xuất</button>
+                </li>
+              </ul>
+          </li>
+          )
+          :
+          (
+            <>
+              <li onClick={e => handleSignIn('signIn')} className="header__navbar-item header__navbar-item--bold header__navbar-item--separation">Đăng nhập</li>
+              <li onClick={e => handleSignUp('signUp')} className="header__navbar-item header__navbar-item--bold">Đăng ký</li>
+            </>
+          )
+        }
       </ul>
     </article>
   );

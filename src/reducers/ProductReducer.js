@@ -3,7 +3,8 @@ import {
   SET_PRODUCT_LIST,
   SET_SINGLE_PRODUCT,
   FILTER_LABEL,
-  FILTER_PRICE
+  FILTER_PRICE,
+  SEARCH_TERM
 }from '../constant/constants'
 
 
@@ -13,7 +14,8 @@ const initialState = {
   singleProduct:{},
   singleProductLoading: true,
   filterLabel:'',
-  filterPrice:''
+  filterPrice:'',
+  searchTerm:''
 }
 
 const proReducer = (state = initialState, action) => {
@@ -38,11 +40,15 @@ const proReducer = (state = initialState, action) => {
         filterLabel: action.payload
       }
     case FILTER_PRICE:
-      console.log(action.payload)
       return {
         ...state,
         filterLabel:'',
         filterPrice:action.payload
+      }
+    case SEARCH_TERM:
+      return {
+        ...state,
+        searchTerm:action.payload
       }
     default:
       return state;

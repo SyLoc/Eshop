@@ -1,8 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FaAngleDown, FaSearch, FaShoppingCart} from 'react-icons/fa'
+import { useDispatch } from 'react-redux';
+
+import {SEARCH_TERM} from '../../constant/constants'
+
+
 const HeaderSearch = () => {
+  const [SearchTerm, setSearchTerm] = useState("");
+  const dispatch = useDispatch()
+
+  const handleSubmit = (e) =>{
+    e.preventDefault()
+    dispatch({type: SEARCH_TERM, payload: SearchTerm})
+    setSearchTerm("")
+  }
+
   return (
-    <article className="header-with-search">
+    <article className="header-with-search" onSubmit={handleSubmit}>
       <div className="header__logo">
         <a href="/" className="header__logo-link">
           <svg viewBox="0 0 192 65" className="header__logo-img">
@@ -16,9 +30,15 @@ const HeaderSearch = () => {
         </a>
       </div>
 
-      <div className="header__search">
+      <form className="header__search">
         <div className="header__search-input-wrap">
-          <input type="text" className="header__search-input" placeholder="Tìm kiếm sản phẩm"/>
+          <input 
+          type="text" 
+          className="header__search-input" 
+          placeholder="Tìm kiếm sản phẩm"
+          value={SearchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+          />
           
           {/* <!-- search history --> */}
           <div className="header__search-history">
@@ -42,17 +62,17 @@ const HeaderSearch = () => {
               <span>Trong shop</span>
               <i className="fas fa-check"></i>
             </li>
-            <li className="header__search-option-item">
+            {/* <li className="header__search-option-item">
               <span>Ngoài shop</span>
               <i className="fas fa-check"></i>
-            </li>
+            </li> */}
           </ul>
 
         </div>
         <button className="header__search-btn">
           <i className="header__search-btn-icon"><FaSearch/></i>
         </button>
-      </div>
+      </form>
       
       {/* <!-- cart --> */}
       <div className="header__cart">

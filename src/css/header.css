@@ -22,7 +22,7 @@
   padding-left: 0;
   margin: 4px 0 0 0;
   display: flex;
-  align-items: center;
+  align-items: baseline;
 }
 
 .header__navbar-item{
@@ -99,6 +99,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  top: 6px;
 }
 
 .header__navbar-user-avatar{
@@ -175,7 +176,11 @@
   border-bottom-right-radius: 2px;
 }
 
-.header__navbar-user-item:last-child a{
+.header__navbar-user-item:last-child button{
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
   color: var(--primary-color);
 }
 
@@ -352,15 +357,41 @@
 
 /* auth modal css */
 .auth-form{
+  position: relative;
   background-color: var(--white-color);
   width: 450px;
   height: auto;
   overflow: hidden;
   border-radius: var(--border-radius);
+  display: none;
+}
+
+
+.auth-form__btn-close{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+}
+
+.auth-form__btn-close i{
+  font-size: 2.3rem;
+  background-color: var(--white-color);
+  color: var(--black-color);
+  cursor: pointer;
+}
+
+.auth-form__signIn--show{
+  display: block;
+}
+
+.auth-form__signUp--show{
+  display: block;
 }
 
 .auth-form__container{
-  padding: 0 32px;
+  padding: 25px 32px 0 32px;
 }
 
 .auth-form__header{
@@ -414,13 +445,17 @@
   /* padding: 0 12px; */
 }
 
+.auth-form__help{
+  font-size: 1.4rem;
+}
+
 .auth-form__text-link{
   color: var(--primary-color);
   text-decoration: none;
 }
 
 .auth-form__controls{
-  margin-top: 80px;
+  margin-top: 60px;
   display: flex;
   justify-content: flex-end;
 }

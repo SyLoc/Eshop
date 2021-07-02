@@ -148,6 +148,27 @@
   margin-bottom: 10px;
 }
 
+.home-products__no-products{
+  display: flex;
+  flex-direction: column;
+}
+
+.home-products__no-products__title{
+  color: var(--text-color);
+  margin-left: 20px;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.home-products__no-products__title i{
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+.home-products__no-products__img{
+  margin: auto;
+}
+
 .home-product-item-wrap{
   text-decoration: none;
 }

@@ -18,13 +18,15 @@ import About from './page/About'
 import Error from './page/Error'
 import Contacts from './page/Contacts'
 import SingleProduct from './components/main/products/SingleProduct';
-import Loading from './components/Loading';
+import Modal from './components/modals/Modal';
 
 
 function App() {
   return (
+    
     <main className="main">
       <Router>
+        <Modal/>
         <Header/>
         <Switch>
           <Route exact path='/'>
