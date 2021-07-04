@@ -4,7 +4,7 @@ import './modal.css'
 const LoadingModal = () => {
   return (
     <div className='overlay__modal-content'>
-      <div class="spinner-3"></div>
+      <div className="spinner-3"></div>
     </div>
   );
 };

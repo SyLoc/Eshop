@@ -119,9 +119,15 @@ const Navigation = () => {
           isLogin ? 
           (
             <li className="header__navbar-item header__navbar-user">
-              <img src="https://png.pngtree.com/png-vector/20190618/ourlarge/pngtree-personalpersonalizationprofileuser-abstract-circle-backgro-png-image_1489146.jpg" alt="avatar" className="header__navbar-user-avatar"/>
+              {
+                infoCustomer.img === "" ?
+                <img src="https://png.pngtree.com/png-vector/20190618/ourlarge/pngtree-personalpersonalizationprofileuser-abstract-circle-backgro-png-image_1489146.jpg" alt="avatar" className="header__navbar-user-avatar"/> :
+                <img src={infoCustomer.img} alt="avatar" className="header__navbar-user-avatar" />
+              }
               <span className="header__navbar-user-name">
-                {infoCustomer.email}
+                {
+                  infoCustomer.name === "" ? infoCustomer.email : infoCustomer.name
+                }
               </span>
   
               <ul className="header__navbar-user-menu">

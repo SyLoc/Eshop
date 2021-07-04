@@ -3,8 +3,7 @@ import axios from '../link/axios'
 import {
   SET_PRODUCT_LIST,
   SET_SINGLE_PRODUCT,
-  ADD_CUSTOMER,
-  GET_ALL_USER
+  ADD_CUSTOMER
 } from '../constant/constants'
 
 export const getProductList = () => async (dispatch) => {

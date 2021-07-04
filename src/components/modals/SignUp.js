@@ -1,6 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import {FaFacebookSquare, FaRegLightbulb} from 'react-icons/fa'
-import {FcGoogle} from 'react-icons/fc'
+import {FaRegLightbulb} from 'react-icons/fa'
 import {CgCloseO} from 'react-icons/cg'
 import {useSelector} from 'react-redux'
 
@@ -9,6 +8,8 @@ import {addUser} from '../../actions/ActionWithProduct'
 import { useDispatch } from 'react-redux';
 
 import LoadingModal from './LoadingModal';
+import FormSocials from './FormSocials';
+
 
 
 const SignUp = ({closeModal, showSignUp, handleClick}) => {
@@ -43,7 +44,9 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
           phone: '',
           address: '',
           isAdmin: false,
-          img:''
+          img:'',
+          googleId:'',
+          facebookId:''
         }
         dispatch(addUser(user))
         setValueSignUp({email:'',password:'',re_password:''})
@@ -62,12 +65,17 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
     }
   }, [isLogin]);
 
+  const closeForm = () =>{
+    setMessage('')
+    closeModal()
+  }
+
 
   return (
     <div className='form-container'>
       {/* <!-- register form --> */}
       <form className={`auth-form ${showSignUp ? 'auth-form__signUp--show':null}`} onSubmit={handleSubmitSignUp}>
-        <button type='button' onClick={closeModal} className='auth-form__btn-close'><i><CgCloseO/></i></button>
+        <button type='button' onClick={closeForm} className='auth-form__btn-close'><i><CgCloseO/></i></button>
         <div className="auth-form__container">
           <div className="auth-form__header">
             <h3 className="auth-form__heading">Đăng ký</h3>
@@ -118,7 +126,9 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
           </div>
         </div>
 
-        <div className="auth-form__socials">
+        <FormSocials setLoading={setLoading} closeModal={closeModal} setMessage={setMessage}/>
+
+        {/* <div className="auth-form__socials">
           <a href='facebook.com' className="btn btn--size-s auth-form__socials--facebook btn--with-icon">
             <i className="auth-form__socials-icon "><FaFacebookSquare/></i>
             <span className="auth-form__socials-title">Kết nối với facebook</span>
@@ -127,7 +137,7 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
             <i className="auth-form__socials-icon "><FcGoogle/></i>
             <span className="auth-form__socials-title">Kết nối với google</span>
           </a>
-        </div>
+        </div> */}
     </form> 
     { loading ? <LoadingModal/> : null}
   </div>

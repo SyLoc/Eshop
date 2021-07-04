@@ -1,6 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import {FaFacebookSquare, FaRegLightbulb} from 'react-icons/fa'
-import {FcGoogle} from 'react-icons/fc'
+import {FaRegLightbulb} from 'react-icons/fa'
 import {CgCloseO} from 'react-icons/cg'
 import {getAll_User} from '../../actions/ActionWithProduct'
 
@@ -10,15 +9,17 @@ import {
 }from '../../constant/constants'
 
 import LoadingModal from './LoadingModal';
+import FormSocials from './FormSocials';
 
 
 const SignIn = ({closeModal, showSignIn, handleClick}) => {
-
   const [valueSignIn, setValueSignIn] = useState({email:'', password:''})
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
   const dispatch = useDispatch();
+
+
 
   const onchangeInputSignIn = (e) =>{
     setValueSignIn({
@@ -35,11 +36,16 @@ const SignIn = ({closeModal, showSignIn, handleClick}) => {
       getAll_User()
         .then((res) => {
           setLoading(false)
-          console.log(res.data)
           const arr = res.data
           let loginFail = true
-          arr.map((item) =>{
+          arr.map(item =>{
             if(item.email === valueSignIn.email && item.password === valueSignIn.password){
+              const user = {
+                name: item.name,
+                email: item.email,
+                img: item.img
+              }
+              dispatch({type: LOGIN, payload: user})
               setMessage('Đăng nhập thành công')
               setValueSignIn({email:"", password:""})
               loginFail = false
@@ -63,13 +69,18 @@ const SignIn = ({closeModal, showSignIn, handleClick}) => {
       login = JSON.parse(localStorage.getItem('login'))
       dispatch({type: LOGIN, payload:login})
     }
-  }, []);
+  }, [dispatch]);
+
+  const closeForm = () =>{
+    setMessage('')
+    closeModal()
+  }
 
   return (
     <div className='form-container'>
       {/* <!-- login form --> */}
       <form className={`auth-form ${ showSignIn ? 'auth-form__signIn--show':null}`} onSubmit={handleSubmit}>
-        <button type='button' onClick={closeModal} className='auth-form__btn-close'><i><CgCloseO/></i></button>
+        <button type='button' onClick={closeForm} className='auth-form__btn-close'><i><CgCloseO/></i></button>
         <div className="auth-form__container">
           <div className="auth-form__header">
             <h3 className="auth-form__heading">Đăng nhập</h3>
@@ -112,16 +123,7 @@ const SignIn = ({closeModal, showSignIn, handleClick}) => {
           </div>
         </div>
 
-        <div className="auth-form__socials">
-          <a href='facebook.com' className="btn btn--size-s auth-form__socials--facebook btn--with-icon">
-            <i className="auth-form__socials-icon "><FaFacebookSquare/></i>
-            <span className="auth-form__socials-title">Kết nối với facebook</span>
-          </a>
-          <a href='google.com' className="btn btn--size-s auth-form__socials--google btn--with-icon">
-            <i className="auth-form__socials-icon "><FcGoogle/></i>
-            <span className="auth-form__socials-title">Kết nối với google</span>
-          </a>
-        </div>
+        <FormSocials setMessage={setMessage} closeModal={closeModal}/>
       </form>
       { loading ? <LoadingModal/> : null}
     </div>

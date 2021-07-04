@@ -42,6 +42,7 @@ const LoginReducer = (state = initialState, action) => {
         isLogin:true,
       }
     case LOGIN:
+      localStorage.setItem('login',JSON.stringify(action.payload))
       return {
         ...state,
         infoCustomer:action.payload,

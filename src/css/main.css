@@ -34,18 +34,18 @@
 
 .category-list{
   list-style: none;
-  padding: 5px 20px 16px 20px;
+  padding: 5px 10px 16px 16px;
 }
 
 
-.category-item--active .category-item__link{
+.category-item--active .category-item__btn{
   color: var(--primary-color);
 }
 
 
-.category-item__link{
-  display: block;
-  text-decoration: none;
+.category-item__btn{
+  /* display: block; */
+  width: 100%;
   font-size: 1.4rem;
   font-weight: 400;
   text-transform: uppercase;
@@ -55,9 +55,16 @@
   border-bottom: 1px solid #ccc;
   line-height: 2rem;
   padding: 12px 0;
+  text-align: left;
+
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
 }
 
-.category-item__link:hover{
+.category-item__btn:hover{
   color: var(--primary-color);
 }
 
@@ -351,7 +358,7 @@
 .home-product-item__sale-off-percent{
   font-size: 1.4rem;
   font-weight: 400;
-  color: var(--primary-color);
+  color: var(--second-color);
   position: relative;
   top: 3px;
   left: 1px;

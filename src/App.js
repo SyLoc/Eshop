@@ -19,11 +19,11 @@ import Error from './page/Error'
 import Contacts from './page/Contacts'
 import SingleProduct from './components/main/products/SingleProduct';
 import Modal from './components/modals/Modal';
+import Cart from './page/Cart';
 
 
 function App() {
   return (
-    
     <main className="main">
       <Router>
         <Modal/>
@@ -31,6 +31,9 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <Home/>
+          </Route>
+          <Route path='/cart'>
+              <Cart/>
           </Route>
           <Route path='/about'>
               <About/>
