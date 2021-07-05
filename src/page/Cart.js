@@ -10,11 +10,7 @@ const Cart2 = () =>{
         <div className='container-abc'>
           <h1>gio hang 1</h1><span>hello</span>
           <h1>gio hang 2</h1>
-          <h1>gio hang 3</h1>
-          <h1>gio hang 4</h1>
-          <h1>gio hang 5</h1><span>hello</span>
-          <h1>gio hang 6</h1>
-          <h1>gio hang 7</h1>
+          
         </div>
       </div>
     </section>
