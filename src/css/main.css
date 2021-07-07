@@ -34,7 +34,7 @@
 
 .category-list{
   list-style: none;
-  padding: 5px 10px 16px 16px;
+  padding: 5px 15px 20px 15px;
 }
 
 
@@ -44,8 +44,9 @@
 
 
 .category-item__btn{
-  /* display: block; */
-  width: 100%;
+  display: block;
+  /* width: 100%; */
+  text-decoration: none;
   font-size: 1.4rem;
   font-weight: 400;
   text-transform: uppercase;
@@ -56,12 +57,6 @@
   line-height: 2rem;
   padding: 12px 0;
   text-align: left;
-
-  background: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  cursor: pointer;
 }
 
 .category-item__btn:hover{

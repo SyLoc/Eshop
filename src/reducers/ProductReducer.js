@@ -4,18 +4,18 @@ import {
   SET_SINGLE_PRODUCT,
   FILTER_LABEL,
   FILTER_PRICE,
-  SEARCH_TERM
+  SEARCH_TERM,
 }from '../constant/constants'
 
 
 const initialState = {
-  products: [],
+  products:[],
   modalContent: "",
   singleProduct:{},
   singleProductLoading: true,
   filterLabel:'',
   filterPrice:'',
-  searchTerm:''
+  searchTerm:'',
 }
 
 const proReducer = (state = initialState, action) => {

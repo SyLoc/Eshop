@@ -1,15 +1,9 @@
 import React, {useState} from 'react';
 import {FaList} from 'react-icons/fa'
 import { category } from '../../link/linkList';
-
 const Category = () => {
 
-  const [idActive, setIdActive] = useState(1)
-
-  const handleClick = (id) =>{
-    setIdActive(id)
-  }
-
+  const [idActive, setIsActive] = useState(1)
 
   return (
     <article className="category">
@@ -20,10 +14,10 @@ const Category = () => {
       <ul className="category-list">
         {
           category.map((item) =>{
-            const {id, text} = item
+            const {id, text, url} = item
             return (
               <li key={id} className={`category-item ${id === idActive ? 'category-item--active' : null}`}>
-                <button onClick={e => handleClick(id)}  className="category-item__btn">{text}</button>
+                <a href={url}  className="category-item__btn">{text}</a>
               </li>
             )
           })

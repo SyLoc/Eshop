@@ -67,6 +67,7 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
 
   const closeForm = () =>{
     setMessage('')
+    setValueSignUp({email:'', password:'', re_password:''})
     closeModal()
   }
 

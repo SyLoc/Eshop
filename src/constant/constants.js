@@ -23,3 +23,4 @@ export const ADD_CUSTOMER = 'ADD_CUSTOMER'
 export const LOGIN = 'LOGIN'
 
 export const LOGOUT = 'LOGOUT'
+

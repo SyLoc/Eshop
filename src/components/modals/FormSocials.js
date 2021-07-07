@@ -36,7 +36,7 @@ const FormSocials = ({closeModal, setLoading, setMessage}) => {
       console.log(response.profileObj)
       let login = false
       const data = response.profileObj
-      users.map((item) =>{
+      users.forEach((item) =>{
         if(item.googleId === data.googleId){
           login = true
           const user = {

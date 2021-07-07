@@ -38,7 +38,7 @@ const SignIn = ({closeModal, showSignIn, handleClick}) => {
           setLoading(false)
           const arr = res.data
           let loginFail = true
-          arr.map(item =>{
+          arr.forEach(item =>{
             if(item.email === valueSignIn.email && item.password === valueSignIn.password){
               const user = {
                 name: item.name,
@@ -73,6 +73,7 @@ const SignIn = ({closeModal, showSignIn, handleClick}) => {
 
   const closeForm = () =>{
     setMessage('')
+    setValueSignIn({email:'', password:''})
     closeModal()
   }
 

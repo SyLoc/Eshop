@@ -26,24 +26,24 @@ const Modal = () => {
     setShowSignUp(false)
   }
 
-  const handleOpenModal = (value) =>{
-    if(openModal === true){
-      setShowModal(true)
-      if(value === 'signIn'){
-        setShowSignIn(true)
-      }
-      if(value === 'signUp'){
-        setShowSignUp(true) 
-      }
-    }
-  }
-
   const handleClick = () =>{
     setShowSignUp(!showSignUp)
     setShowSignIn(!showSignIn)
   }
 
   useEffect(() => {
+    const handleOpenModal = (value) =>{
+      if(openModal === true){
+        setShowModal(true)
+        if(value === 'signIn'){
+          setShowSignIn(true)
+        }
+        if(value === 'signUp'){
+          setShowSignUp(true) 
+        }
+      }
+    }
+    
     handleOpenModal(modalContent)
   }, [openModal,modalContent]);
 

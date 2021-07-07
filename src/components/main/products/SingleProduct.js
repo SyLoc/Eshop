@@ -29,7 +29,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     dispatch(getSingleProduct(id))
-  }, [dispatch]);
+  }, [dispatch,id]);
 
 
   if(loading){

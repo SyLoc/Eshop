@@ -58,21 +58,16 @@ export const category = [
   },
   {
     id:4,
-    text: 'Kem trang điểm',
-    url: '/kemtrangdiem'
+    text: 'Mỹ phẩm',
+    url: '/mypham'
   },
   {
     id:5,
-    text: 'Phấn trang điểm',
-    url: '/phantrangdiem'
-  },
-  {
-    id:6,
     text: 'Dụng cụ trang điểm',
     url: '/dungcutrangdiem'
   },
   {
-    id:7,
+    id:6,
     text: 'Thực phẩm chức năng',
     url: '/dungcutrangdiem'
   }

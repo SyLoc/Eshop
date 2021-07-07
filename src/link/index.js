@@ -1,3 +1,3 @@
 import axios from './axios'
 
-export const getUser = () => axios.get('/users');
+// export const getUser = () => axios.get('/users');
