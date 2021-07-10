@@ -270,7 +270,7 @@
   font-size: 1.4rem;
   margin-left: 4px;
   color: black;
-}
+} 
 
 
 .home-product-item__footer{
@@ -582,7 +582,7 @@
 }
 
 .singleProduct__quantity-label{
-  color: var(--text-label);
+  color: var(--text-label); 
   width: 130px;
 }
 

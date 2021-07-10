@@ -10,7 +10,6 @@ import {getSingleProduct} from '../../../actions/ActionWithProduct'
 
 const SingleProduct = () => {
   const {id} = useParams();
-  const img = 'https://cf.shopee.vn/file/3e549d6281cb111169c5556295aa0064'
   const dispatch = useDispatch();
   const product = useSelector((state) => state.pro.singleProduct)
   const loading = useSelector((state) => state.pro.singleProductLoading)
@@ -123,7 +122,7 @@ const SingleProduct = () => {
               <span className='singleProduct__quantity-label quantity--space'>{quantity} sản phẩm có sẵn</span>
             </div>
             <div className="singleProduct__button-container">
-              <button className="singleProduct__button-add btn btn--second">
+              <button className="singleProduct__button-add btn btn--second"> 
                 <i className='singleProduct__button-add-icon'><FaCartPlus/></i>
                 <span>Thêm vào giỏ hàng</span>
               </button>

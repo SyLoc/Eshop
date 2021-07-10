@@ -149,6 +149,10 @@ html{
   justify-content: center;
 }
 
+.modal__body::-webkit-scrollbar { 
+  display: none; 
+}
+
 
 /* button primary */
 

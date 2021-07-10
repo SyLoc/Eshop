@@ -20,7 +20,7 @@ import Contacts from './page/Contacts'
 import SingleProduct from './components/main/products/SingleProduct';
 import Modal from './components/modals/Modal';
 import Cart from './page/Cart';
-
+import Checkout from './page/Checkout';
 
 function App() {
   return (
@@ -34,6 +34,9 @@ function App() {
           </Route>
           <Route path='/cart'>
               <Cart/>
+          </Route>
+          <Route path='/checkout'>
+              <Checkout/>
           </Route>
           <Route path='/about'>
               <About/>

@@ -122,7 +122,7 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
           </div> 
 
           <div className="auth-form__controls">
-            <button type='button' onClick={handleClick} className="btn btn--normal auth-form__controls-back">TRỞ LẠI</button>
+            <button type='button' onClick={closeForm} className="btn btn--normal auth-form__controls-back">TRỞ LẠI</button>
             <button className="btn btn--primary">ĐĂNG KÝ</button>
           </div>
         </div>

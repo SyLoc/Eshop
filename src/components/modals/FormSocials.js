@@ -77,19 +77,20 @@ const FormSocials = ({closeModal, setLoading, setMessage}) => {
   }
 
 
+
   return (
     <div className="auth-form__socials">
+      <button type='button' onClick={handleClickFB} className="btn auth-form__socials--facebook">
+        <i className="auth-form__socials-icon "><FaFacebookSquare/></i>
+        <span className="auth-form__socials-title">Đăng nhập với Facebook</span>
+      </button>
       {/* <FacebookLogin
-        appId="222944162878501"
+        appId="344457380599359"
         autoLoad={true}
         fields="name, email, picture"
         onClick={componentClicked}
         callback={responseFacebook}
       /> */}
-      <button type='button' onClick={handleClickFB} className="btn auth-form__socials--facebook">
-        <i className="auth-form__socials-icon "><FaFacebookSquare/></i>
-        <span className="auth-form__socials-title">Đăng nhập với Facebook</span>
-      </button>
       <GoogleLogin
         className='btn-login-google'
         clientId="402496708879-dc1e99l33btevm0mnd60qnhuog1mon5o.apps.googleusercontent.com"
