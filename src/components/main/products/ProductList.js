@@ -13,7 +13,6 @@ const ProductList = () => {
   const valueFilterLabel = useSelector(state => state.pro.filterLabel);
   const valueFilterPrice = useSelector(state => state.pro.filterPrice);
   const searchTerm = useSelector(state => state.pro.searchTerm);
-  const category = useSelector(state => state.pro.category);
   const dispatch = useDispatch();
   const [data, setData] = useState(products)
   const [ProductAfterSearching, SetproductAfterSearching] = useState([])
@@ -25,7 +24,7 @@ const ProductList = () => {
     }else{
       return [...products]
     }
-  }
+  } 
 
   const removeAccents = (str='') => {
     return str.normalize('NFD')
@@ -40,6 +39,7 @@ const ProductList = () => {
 
   useEffect(() => {
     const handleFilterPrice = (value) =>{
+
       const newArray = checkSearch() 
       if(newArray.length <= 1){
         return 
@@ -51,6 +51,7 @@ const ProductList = () => {
         if(value === 'HightoLow'){
           return b.priceCurrent.split('.').join('') - a.priceCurrent.split('.').join('')
         }
+        return newArray
       })
       setData(newData)
     }
@@ -60,7 +61,9 @@ const ProductList = () => {
 
 
   useEffect(() => {
+
     const handleFilterLabel = (value) =>{
+
       var newData = checkSearch()
   
       if(value === 'popular'){
@@ -105,6 +108,7 @@ const ProductList = () => {
           setSearch(true)
           return item
         }
+        return newArr
       })
       SetproductAfterSearching(newdata)
       setData(newdata)
@@ -134,7 +138,6 @@ const ProductList = () => {
     <section className="home-products">
       <div className="grid__row grid__row--reset">
       {
-        //search.status ? search.data.map((item, index) => <Product key={index} {...item}/>) :
         data.map((item, index) => <Product key={index} {...item}/>)
       }
       </div>

@@ -9,6 +9,11 @@ import Footer from '../components/footer/Footer';
 
 
 const Cart = () =>{
+
+  const handleChangeInput = () =>{
+
+  }
+
   return (
     <section className='grid'>
       <div className='cart__header'>
@@ -88,7 +93,7 @@ const Cart = () =>{
                   <button className="container__item-amount-btn container__item-amount-decrease">
                     <i><AiOutlineMinus/></i>
                   </button>
-                  <input className='container__item-amount-input' value='1' type="text"/>
+                  <input onChange={handleChangeInput} className='container__item-amount-input' defaultValue="1" type="text"/>
                   <button className="container__item-amount-btn container__item-amount-increase">
                     <i><AiOutlinePlus/></i>
                   </button>
@@ -164,7 +169,7 @@ const Cart = () =>{
                   <button className="container__item-amount-btn container__item-amount-decrease">
                     <i><AiOutlineMinus/></i>
                   </button>
-                  <input className='container__item-amount-input' value='2' type="text"/>
+                  <input onChange={handleChangeInput} className='container__item-amount-input' defaultValue='2' type="text"/>
                   <button className="container__item-amount-btn container__item-amount-increase">
                     <i><AiOutlinePlus/></i>
                   </button>

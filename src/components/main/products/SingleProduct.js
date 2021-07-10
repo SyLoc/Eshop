@@ -25,6 +25,9 @@ const SingleProduct = () => {
     description
   } = product
   
+  const handleChangeInput = () =>{
+
+  }
 
   useEffect(() => {
     dispatch(getSingleProduct(id))
@@ -73,8 +76,8 @@ const SingleProduct = () => {
                         <>
                           <i className="home-product-item__star--gold"><FaStar/></i>
                           {
-                            [...Array(5 - JSON.parse(starRating))].map((star2)=>{
-                              return <i className="home-product-item__star--disable"><FaStar/></i>
+                            [...Array(5 - JSON.parse(starRating))].map((star2, index)=>{
+                              return <i className="home-product-item__star--disable" key={index}><FaStar/></i>
                             })
                           }
                         </>
@@ -114,7 +117,7 @@ const SingleProduct = () => {
                 <button className="singleProduct__quantity-btn singleProduct__quantity-decrease">
                   <i><AiOutlineMinus/></i>
                 </button>
-                <input className='singleProduct__quantity-input' value='1' type="text"/>
+                <input onChange={handleChangeInput} className='singleProduct__quantity-input' defaultValue='1' type="text"/>
                 <button className="singleProduct__quantity-btn singleProduct__quantity-increase">
                   <i><AiOutlinePlus/></i>
                 </button>

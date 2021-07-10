@@ -20,12 +20,12 @@ const Product = (
 
   
   return (
-    <article className="grid__column-2-4">
-      <Link className="home-product-item-wrap" to={`/singleProduct/${id}`}>
-        <div className="home-product-item">
+    <div className="grid__column-2-4">
+      <Link className='home-product-item-wrap' to={`/singleProduct/${id}`}> 
+        <div className="home-product-item " >
           <div 
-          className="home-product-item__img"
-          style = {{backgroundImage: `url(${image})`}}>
+            className="home-product-item__img"
+            style = {{backgroundImage: `url(${image})`}}>
           </div>
           <h4 className="home-product-item__name">{name}</h4>
           
@@ -48,8 +48,8 @@ const Product = (
                       <>
                         <i className="home-product-item__star--gold"><FaStar/></i>
                         {
-                          [...Array(5 - JSON.parse(starRating))].map((star2)=>{
-                            return <i className="home-product-item__star--disable"><FaStar/></i>
+                          [...Array(5 - JSON.parse(starRating))].map((star2, index)=>{
+                            return <i key={index} className="home-product-item__star--disable"><FaStar/></i>
                           })
                         }
                       </>
@@ -83,7 +83,7 @@ const Product = (
           </div>
         </div>
       </Link>
-    </article>
+    </div>
   );
 };
 
