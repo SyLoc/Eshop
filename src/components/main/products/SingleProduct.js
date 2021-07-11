@@ -73,17 +73,17 @@ const SingleProduct = () => {
                   [...Array(JSON.parse(starRating))].map((star, i) =>{
                     if(i+1 === JSON.parse(starRating) && i+1 < 5){
                       return (
-                        <>
-                          <i className="home-product-item__star--gold"><FaStar/></i>
+                        <span key={i}>
+                          <i key={i} className="home-product-item__star--gold"><FaStar/></i>
                           {
                             [...Array(5 - JSON.parse(starRating))].map((star2, index)=>{
                               return <i className="home-product-item__star--disable" key={index}><FaStar/></i>
                             })
                           }
-                        </>
+                        </span>
                       )
                     }
-                    return <i className="home-product-item__star--gold"><FaStar/></i>
+                    return <i key={i} className="home-product-item__star--gold"><FaStar/></i>
                   }) 
                 }
               </div>

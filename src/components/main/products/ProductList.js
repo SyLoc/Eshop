@@ -14,33 +14,68 @@ const ProductList = () => {
   const valueFilterPrice = useSelector(state => state.pro.filterPrice);
   const searchTerm = useSelector(state => state.pro.searchTerm);
   const dispatch = useDispatch();
+  
   const [data, setData] = useState(products)
-  const [ProductAfterSearching, SetproductAfterSearching] = useState([])
-  const [search, setSearch] = useState(false)
-
-  const checkSearch = () =>{
-    if(search === true){
-      return [...ProductAfterSearching]
-    }else{
-      return [...products]
-    }
-  } 
-
-  const removeAccents = (str='') => {
-    return str.normalize('NFD')
-              .replace(/[\u0300-\u036f]/g, '')
-              .replace(/đ/g, 'd').replace(/Đ/g, 'D');
-  }
-
 
   useEffect(() => {
     dispatch(getProductList())
   }, [dispatch]);
 
-  useEffect(() => {
-    const handleFilterPrice = (value) =>{
+  const filterProduct = (Array = []) =>{
+    const newArray = [...Array]
 
-      const newArray = checkSearch() 
+    const removeAccents = (str='') => {
+      return str.normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd').replace(/Đ/g, 'D');
+    }
+
+    const getFollowName = (value) =>{
+      const newdata = newArray.filter(item => {
+        let newItem = removeAccents(item.name)
+        let searchTerm = removeAccents(value)
+        if(value === ""){
+          return item
+        }else if(newItem.toLowerCase().includes(searchTerm.toLowerCase())){
+          return item
+        }
+        return 0
+      })
+      setData(newdata)
+    }
+  
+    const getFollowLabel = (label) =>{
+
+      if(label === 'popular'){
+        setData(newArray)
+      }
+  
+      if(label === 'new'){
+        const arr = []
+        let count = 0;
+        for(let i=newArray.length-1 ;i >= 0; i--){
+          if(count < 8){
+            arr.push(newArray[i])
+            count++;
+          }
+        }
+        setData(arr)
+      }
+  
+      if(label === 'sell'){
+        const arr = []
+        newArray.forEach((item) => {
+          if(item.sold >= 10){
+            return arr.push(item)
+          }
+        })
+        setData(arr)
+      }
+      
+    }
+  
+    const getFollowPrice = (value) =>{
+
       if(newArray.length <= 1){
         return 
       }
@@ -56,65 +91,34 @@ const ProductList = () => {
       setData(newData)
     }
 
-    handleFilterPrice(valueFilterPrice) 
-  }, [valueFilterPrice]);
-
+  
+    const getFollowCategory = (nameCategory) =>{
+      const data = newArray.filter(item => item.category === nameCategory)
+      console.log(data)
+    }
+  
+    return {
+      getFollowName,
+      getFollowLabel,
+      getFollowPrice,
+      getFollowCategory
+    }
+  }
 
   useEffect(() => {
-
-    const handleFilterLabel = (value) =>{
-
-      var newData = checkSearch()
-  
-      if(value === 'popular'){
-        setData(newData)
-      }
-  
-      if(value === 'new'){
-        const arr = []
-        let count = 0;
-        for(let i=newData.length-1 ;i >= 0; i--){
-          if(count < 8){
-            arr.push(newData[i])
-            count++;
-          }
-        }
-        setData(arr)
-      }
-  
-      if(value === 'sell'){
-        const arr = []
-        newData.forEach((item) => {
-          if(item.sold >= 10){
-            return arr.push(item)
-          }
-        })
-        setData(arr)
-      }
-    }
-    handleFilterLabel(valueFilterLabel)
-  }, [valueFilterLabel]);
-
+    const func = filterProduct(products)
+    func.getFollowName(searchTerm)
+  }, [searchTerm,products]);
 
   useEffect(() => {
-    const handleSearch = (value) =>{
-      const newArr = [...products]
-      const newdata = newArr.filter(item => {
-        let newItem = removeAccents(item.name)
-        let newValue = removeAccents(value)
-        if(value === ""){
-          return item
-        }else if(newItem.toLowerCase().includes(newValue.toLowerCase())){
-          setSearch(true)
-          return item
-        }
-        return newArr
-      })
-      SetproductAfterSearching(newdata)
-      setData(newdata)
-    }
-    handleSearch(searchTerm)
-  }, [searchTerm]);
+    const func = filterProduct(products)
+    func.getFollowPrice(valueFilterPrice)
+  }, [valueFilterPrice,products]);
+
+  useEffect(() => {
+    const func = filterProduct(products)
+    func.getFollowLabel(valueFilterLabel)
+  }, [valueFilterLabel,products]);
 
 
   if(products.length < 1){
@@ -138,7 +142,7 @@ const ProductList = () => {
     <section className="home-products">
       <div className="grid__row grid__row--reset">
       {
-        data.map((item, index) => <Product key={index} {...item}/>)
+        data.map((item, index) => <Product key={index} {...item}/> )
       }
       </div>
     </section>

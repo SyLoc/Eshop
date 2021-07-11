@@ -212,7 +212,7 @@ const HeaderSearch = () => {
                 </li>
 
               </ul>
-            <Link to='/cart' className="header__cart-view btn btn--primary">Xem giỏ hàng</Link>
+              <button to='/cart' className="header__cart-view btn btn--primary">Xem giỏ hàng</button>
             </div>
           </div>
         </Link>
