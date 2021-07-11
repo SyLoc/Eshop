@@ -49,7 +49,6 @@ const FormSocials = ({closeModal, setLoading, setMessage}) => {
         }
       })
       if(login === false){
-        setLoading(true)
         const id_random = new Date().getTime().toString()
         const user = {
           idUser: id_random.substr(8),
@@ -68,7 +67,7 @@ const FormSocials = ({closeModal, setLoading, setMessage}) => {
       }
       // login
     } catch (error) {
-      console.log('error: ', error)
+      console.log('error @123: ', error)
     }
   }
 
