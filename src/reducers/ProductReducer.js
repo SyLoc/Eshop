@@ -22,6 +22,7 @@ const proReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_PRODUCT_LIST:
       const newProductList = [...action.payload.data]
+      // localStorage.setItem('products', newProductList)
       return {
         ...state, 
         products: newProductList,

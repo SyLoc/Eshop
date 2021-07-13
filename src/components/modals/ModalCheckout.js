@@ -45,12 +45,36 @@ const ModalCheckout = ({ setShowModal }) => {
           <div className={`modal-checkout__content__group-wrap ${state.address === '' ? null : 'placeholder--active'}`}>
             <div className='modal-checkout__content__group__placeholder'>Tỉnh/thành phố, Quận/Huyện, Phường/Xã</div>
             <input
-              className='modal-checkout__content__group-3-input'
+              className='modal-checkout__content__group-2-input'
               name='address'
               type="text"
               placeholder='Tỉnh/thành phố, Quận/Huyện, Phường/Xã'
               onChange={onChangeInput}
             />
+
+            <div className='content__group-2_modal-wrap'>
+              <div className='content__group-2_modal'>
+                <div className='content__group-2_modal-header'>
+                  <div className='content__group-2_modal-header-item modal-header-item--active'>Tỉnh/thành phố</div>
+                  <div className='content__group-2_modal-header-item '>Quận/Huyện</div>
+                  <div className='content__group-2_modal-header-item'>Phường/Xã</div>
+                </div>
+                <div className='content__group-2_modal-body'>
+                  <div className='content__group-2_modal-body-item'>Hà nội</div>
+                  <div className='content__group-2_modal-body-item'>Đà nẵng</div>
+                  <div className='content__group-2_modal-body-item'>TPHCM</div>
+                  <div className='content__group-2_modal-body-item'>Đà lạt</div>
+                  <div className='content__group-2_modal-body-item'>Hà nội</div>
+                  <div className='content__group-2_modal-body-item'>Đà nẵng</div>
+                  <div className='content__group-2_modal-body-item'>TPHCM</div>
+                  <div className='content__group-2_modal-body-item'>Đà lạt</div>
+                  <div className='content__group-2_modal-body-item'>Hà nội</div>
+                  <div className='content__group-2_modal-body-item'>Đà nẵng</div>
+                  <div className='content__group-2_modal-body-item'>TPHCM</div>
+                  <div className='content__group-2_modal-body-item'>Đà lạt</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className='modal-checkout__content__group'>
@@ -65,7 +89,12 @@ const ModalCheckout = ({ setShowModal }) => {
             />
           </div>
         </div>
-        <div className="auth-form__controls">
+
+        <div className='modal-checkout__content__group'>
+          <img className='modal-checkout__content__group-img' src="https://i1.wp.com/hipertextual.com/wp-content/uploads/2018/08/Google-Maps.jpeg?fit=950%2C475&ssl=1" alt="" />
+        </div>
+
+        <div className="auth-form__controls auth-form__controls--size-s">
           <button onClick={e => setShowModal(false)} className="btn btn--normal auth-form__controls-back">TRỞ LẠI</button>
           <button className="btn btn--primary">HOÀN THÀNH</button>
         </div>

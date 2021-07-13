@@ -38,7 +38,24 @@
   background-color: #f1f1f1; 
   min-height: 80vh;
 }
+/* ====== */
+.main-center{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
 
+.main-center .btn--normal{
+  margin: 10px auto;
+}
+
+.main-center-title{
+  font-size: 1.6rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+/* ===================== */
 .cart__main-header{
   background-color: var(--white-color);
   height: 56px;

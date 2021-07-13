@@ -476,7 +476,7 @@
 
 .header__cart-no-cart-img{
   display: none;
-  width: 60%;
+  width: 38%;
 }
 
 .header__cart-under-title{
@@ -671,9 +671,12 @@
 }
 
 .header__cart-list-item{
+  position: relative;
   list-style: none;
   padding: 0;
-  height: 55vh;
+  min-height: 35vh;
+  max-height: 55vh;
+  height: auto;
   overflow-y: auto;
 }
 
@@ -768,8 +771,15 @@
   cursor: pointer;
 }
 
+.header__cart-wrap-btn{
+  height: 60px;
+  background-color: var(--white-color);
+}
+
 .header__cart-view{
-  float: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
   margin: 0 12px 12px 0;
 }
 

@@ -3,7 +3,10 @@ import axios from '../link/axios'
 import {
   SET_PRODUCT_LIST,
   SET_SINGLE_PRODUCT,
-  ADD_CUSTOMER
+  ADD_CUSTOMER,
+  ADD_TO_CART,
+  UPDATE_CART,
+  DELETE_CART
 } from '../constant/constants'
 
 export const getProductList = () => async (dispatch) => {
@@ -41,5 +44,44 @@ export const getAll_User = async() => {
     return res
   } catch (error) {
     console.log(error)
+  }
+}
+
+
+// product 
+
+export const getAllCart = async() =>{
+  try {
+    const res = await axios.get('/favorites')
+    return res
+  } catch (error) {
+    console.log("error@: ", error)
+  }
+}
+
+export const addToCart = (value) => async (dispatch) =>{
+  try {
+    const res = await axios.post('/favorites', value)
+    dispatch({type:ADD_TO_CART, payload:res})
+  } catch (error) {
+    console.log("error@: ", error)
+  }
+}
+
+export const updateCart = (value) => async (dispatch) =>{
+  try {
+    const res = await axios.put('/favorites', value)
+    dispatch({type: UPDATE_CART, payload:res})
+  } catch (error) {
+    console.log("error@: ", error)
+  }
+}
+
+export const deleteCart = (value) => async (dispatch) =>{
+  try {
+    const res = await axios.delete('favorites/', value)
+    dispatch({type: DELETE_CART, payload:res})
+  } catch (error) {
+    console.log("error@: ", error)
   }
 }

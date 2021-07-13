@@ -18,7 +18,7 @@ const Navigation = () => {
   }
 
   const logOut = () =>{
-    dispatch({type: LOGOUT})
+    dispatch({type: LOGOUT}) 
   }
 
   return (

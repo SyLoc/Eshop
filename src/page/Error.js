@@ -3,13 +3,19 @@ import {Link} from 'react-router-dom'
 import Loading from '../components/Loading';
 
 
+const style = {
+  marginTop: '30px',
+  display: 'flex',
+  justifyContent: 'center'
+}
+
 const Error = () => {
   const [loading, setLoading] = useState(true)
   
   useEffect(() => {
     setTimeout(() => {
       setLoading(false)
-    }, 3000);
+    }, 1000);
   },[]);
 
   if(loading){
@@ -21,9 +27,11 @@ const Error = () => {
   }
 
   return (
-    <section className='section-center' >
-      <h1>This is Error Page</h1>
-      <Link className='btn' to='/'> Back home</Link>
+    <section style={style} className='section-center' >
+      <div>
+        <h1>This is Error Page</h1>
+        <Link className='btn' to='/'> Back home</Link>
+      </div>
     </section>
   );
 };

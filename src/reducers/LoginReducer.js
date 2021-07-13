@@ -11,7 +11,7 @@ const initialState = {
   openModal:false,
   modalContent:'',
   isLogin:false,
-  infoCustomer:{name:'',email:'',img:''},
+  infoCustomer:{id:'',name:'',email:'',img:''},
 }
 
 const LoginReducer = (state = initialState, action) => {
@@ -29,8 +29,8 @@ const LoginReducer = (state = initialState, action) => {
         modalContent:''
       }
     case ADD_CUSTOMER:
-      console.log(action.payload.data)
       const infoUser = {
+        id:action.payload.data.id,
         name:action.payload.data.name,
         email:action.payload.data.email,
         img:action.payload.data.img
@@ -39,22 +39,30 @@ const LoginReducer = (state = initialState, action) => {
       return {
         ...state,
         infoCustomer: infoUser,
-        isLogin:true,
+        isLogin:true
       }
     case LOGIN:
-      localStorage.setItem('login',JSON.stringify(action.payload))
+      const newInfo = {
+        id:action.payload.id,
+        name: action.payload.name,
+        email: action.payload.email,
+        img: action.payload.img
+      }
+      localStorage.setItem('login',JSON.stringify(newInfo))
       return {
         ...state,
-        infoCustomer:action.payload,
+        infoCustomer:newInfo,
         isLogin:true
       }
     case LOGOUT:
       const resetInfoCustomer = {
+        id:'',
         name:'',
         email:'',
         img:''
       }
       localStorage.removeItem('login')
+      localStorage.removeItem('carts')
       return{
         ...state,
         isLogin:false,

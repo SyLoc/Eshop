@@ -1,8 +1,10 @@
+import React from 'react';
 import './App.css';
 import {
   BrowserRouter as Router, 
   Switch,
   Route,
+  Redirect,
   // Link,
   // Redirect,
   // useRouteMatch,
@@ -10,7 +12,6 @@ import {
 } from 'react-router-dom'
 // component
 import Header from './page/Header';
-import Product from './components/main/products/Product'
 
 // page
 import Home from './page/Home'
@@ -22,7 +23,14 @@ import Modal from './components/modals/Modal';
 import Cart from './page/Cart';
 import Checkout from './page/Checkout';
 
+// ========================
+
+import {useSelector} from 'react-redux'
+
 function App() {
+
+  const login =  useSelector(state => state.lo.isLogin);
+
   return (
     <main className="main">
       <Router>
@@ -32,20 +40,19 @@ function App() {
           <Route exact path='/'>
             <Home/>
           </Route>
-          <Route path='/cart'>
-              <Cart/>
+          <Route path='/cart' render={() =>{
+            return login ? <Cart/> : <Redirect to='/'/>
+          }}>
           </Route>
-          <Route path='/checkout'>
-              <Checkout/>
+          <Route path='/checkout' render={() =>{
+            return login ? <Checkout/> : <Redirect to='/'/>
+          }}>
           </Route>
           <Route path='/about'>
               <About/>
           </Route>
           <Route path='/contacts'>
               <Contacts/>
-          </Route>
-          <Route path='/product'>
-              <Product/>
           </Route>
           <Route path='/SingleProduct/:id'>
               <SingleProduct/>

@@ -37,7 +37,7 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
         setLoading(true)
         const id_random = new Date().getTime().toString()
         const user = {
-          idUser: id_random.substr(8),
+          id: id_random.substr(8),
           email: valueSignUp.email,
           password: valueSignUp.password,
           name: '',

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FaStar, FaCartPlus} from 'react-icons/fa'
 import {AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai'
 import {RiArrowRightSLine, RiArrowLeftSLine} from 'react-icons/ri'
@@ -7,12 +7,16 @@ import {useDispatch, useSelector} from 'react-redux'
 import Loading from '../../Loading';
 
 import {getSingleProduct} from '../../../actions/ActionWithProduct'
+import {addToCart} from '../../../actions/ActionWithProduct'
+import NotifiModal from '../../modals/NotifiModal'
 
 const SingleProduct = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.pro.singleProduct)
-  const loading = useSelector((state) => state.pro.singleProductLoading)
+  const product = useSelector(state => state.pro.singleProduct)
+  const loading = useSelector(state => state.pro.singleProductLoading)
+  const cart = useSelector(state => state.sale.cart)
+
   const {
     name,
     image,
@@ -24,10 +28,32 @@ const SingleProduct = () => {
     discountPercent,
     description
   } = product
+
+  const [notifi, setNotifi] = useState(false)
   
   const handleChangeInput = () =>{
 
   }
+
+  const handleClick = (id) =>{
+    const product = {
+      productId:id,
+      amount:1
+    }
+    dispatch(addToCart(product))
+    setNotifi(true)
+  }
+
+  useEffect(() => {
+    console.log(cart)
+  }, [cart]);
+
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      setNotifi(false)
+    }, 2000);
+    return () => clearTimeout(timeOut)
+  }, [notifi]);
 
   useEffect(() => {
     dispatch(getSingleProduct(id))
@@ -125,7 +151,7 @@ const SingleProduct = () => {
               <span className='singleProduct__quantity-label quantity--space'>{quantity} sản phẩm có sẵn</span>
             </div>
             <div className="singleProduct__button-container">
-              <button className="singleProduct__button-add btn btn--second"> 
+              <button onClick={e => handleClick(id)} className="singleProduct__button-add btn btn--second"> 
                 <i className='singleProduct__button-add-icon'><FaCartPlus/></i>
                 <span>Thêm vào giỏ hàng</span>
               </button>
@@ -134,6 +160,9 @@ const SingleProduct = () => {
           </div>
         </div>
       </div>
+      {
+        notifi ? <NotifiModal text='Sản phẩm đã được thêm vào giỏ hàng' type='successful'/> : null
+      }
     </article>
   );
 };

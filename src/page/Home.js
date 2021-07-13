@@ -6,6 +6,7 @@ import Footer from '../components/footer/Footer';
 import Pagination from '../components/main/Pagination';
 
 const Home = () => {
+
   return (
     <main className="container grid">
       <section className="grid__row container__content">

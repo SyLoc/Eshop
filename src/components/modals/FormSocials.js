@@ -33,7 +33,7 @@ const FormSocials = ({closeModal, setLoading, setMessage}) => {
 
   const responseGoogle = (response) =>{
     try {
-      console.log(response.profileObj)
+      // console.log(response.profileObj)
       let login = false
       const data = response.profileObj
       users.forEach((item) =>{

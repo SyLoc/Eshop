@@ -41,6 +41,7 @@ const SignIn = ({closeModal, showSignIn, handleClick}) => {
           arr.forEach(item =>{
             if(item.email === valueSignIn.email && item.password === valueSignIn.password){
               const user = {
+                id: item.id,
                 name: item.name,
                 email: item.email,
                 img: item.img
