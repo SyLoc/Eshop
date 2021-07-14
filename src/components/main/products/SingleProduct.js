@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import Loading from '../../Loading';
 
 import {getSingleProduct} from '../../../actions/ActionWithProduct'
-import {addToCart} from '../../../actions/ActionWithProduct'
+import {addToCart, updateCart} from '../../../actions/ActionWithProduct'
 import NotifiModal from '../../modals/NotifiModal'
 
 const SingleProduct = () => {
@@ -15,7 +15,9 @@ const SingleProduct = () => {
   const dispatch = useDispatch();
   const product = useSelector(state => state.pro.singleProduct)
   const loading = useSelector(state => state.pro.singleProductLoading)
-  const cart = useSelector(state => state.sale.cart)
+  // const cart = useSelector(state => state.sale.cart)
+  const isLogin = useSelector(state => state.lo.isLogin)
+  const [numberAmount, setNumberAmount] = useState(1)
 
   const {
     name,
@@ -31,22 +33,61 @@ const SingleProduct = () => {
 
   const [notifi, setNotifi] = useState(false)
   
-  const handleChangeInput = () =>{
-
-  }
-
-  const handleClick = (id) =>{
-    const product = {
-      productId:id,
-      amount:1
-    }
-    dispatch(addToCart(product))
-    setNotifi(true)
+  const handleChangeInput = (e) =>{
+    console.log(e.target.defaultValue)
   }
 
   useEffect(() => {
-    console.log(cart)
-  }, [cart]);
+    console.log(numberAmount)
+  }, [numberAmount]);
+  
+  const handleClick = (id) =>{
+    if(isLogin){
+      let initialAmount = numberAmount;
+      const userInfo = JSON.parse(localStorage.getItem('login')) || ''
+      const cartInfo = JSON.parse(localStorage.getItem('cartInfo')) || {}
+      if(cartInfo){
+        const allProducts = [...cartInfo.products]
+        allProducts.map((item, index) => {
+          if(item.productId === id){
+            initialAmount = item.amount + 1;
+            allProducts.splice(index,1)
+          }
+          return 0
+        })
+        const idCart = cartInfo.id
+        const product = {
+          // idUser: userInfo.id,
+          products: [
+            ...allProducts,
+            {
+              productId:id,
+              amount:initialAmount
+            }
+          ]
+        }
+        dispatch(updateCart(idCart,product))
+        setNotifi(true)
+      }
+      else{
+        const product = {
+          idUser: userInfo.id,
+          products: [
+            {
+              productId:id,
+              amount:initialAmount
+            }
+          ]
+        }
+        dispatch(addToCart(product))
+        setNotifi(true)
+      }
+    }
+  }
+
+  // useEffect(() => {
+  //   setNotifi(true)
+  // }, [cart]);
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
@@ -140,11 +181,11 @@ const SingleProduct = () => {
             <div className="singleProduct__quantity">
               <span className='singleProduct__quantity-label'>Số lượng: </span>
               <div className='singleProduct__quantity-wrap'>
-                <button className="singleProduct__quantity-btn singleProduct__quantity-decrease">
+                <button onClick={e => setNumberAmount(numberAmount - 1)} className="singleProduct__quantity-btn singleProduct__quantity-decrease">
                   <i><AiOutlineMinus/></i>
                 </button>
-                <input onChange={handleChangeInput} className='singleProduct__quantity-input' defaultValue='1' type="text"/>
-                <button className="singleProduct__quantity-btn singleProduct__quantity-increase">
+                <input onChange={handleChangeInput} className='singleProduct__quantity-input' defaultValue={numberAmount || 1} type="text"/>
+                <button onClick={e => setNumberAmount(numberAmount + 1)} className="singleProduct__quantity-btn singleProduct__quantity-increase">
                   <i><AiOutlinePlus/></i>
                 </button>
               </div>
@@ -161,7 +202,10 @@ const SingleProduct = () => {
         </div>
       </div>
       {
-        notifi ? <NotifiModal text='Sản phẩm đã được thêm vào giỏ hàng' type='successful'/> : null
+        notifi && isLogin ? <NotifiModal text='Sản phẩm đã được thêm vào giỏ hàng' type='successful'/> : null
+      }
+      {
+        notifi && isLogin === false ? <NotifiModal text='Đăng nhập để thêm sản phẩm vào giỏ hàng' type='warning'/> : null
       }
     </article>
   );

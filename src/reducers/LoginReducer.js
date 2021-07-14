@@ -63,6 +63,7 @@ const LoginReducer = (state = initialState, action) => {
       }
       localStorage.removeItem('login')
       localStorage.removeItem('carts')
+      localStorage.removeItem('cartInfo')
       return{
         ...state,
         isLogin:false,

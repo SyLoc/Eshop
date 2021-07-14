@@ -1,7 +1,8 @@
 
 
 import {
-  ADD_TO_CART
+  ADD_TO_CART,
+  UPDATE_CART
 }from '../constant/constants'
 
 const initialState = {
@@ -16,6 +17,12 @@ const SaleReducer = (state = initialState, action) => {
         ...state,
         cart: newCart
       }
+    case UPDATE_CART:
+      const updateCart = action.payload.data
+      return{
+        ...state,
+        cart: updateCart
+      };
     default:
       return state;
   }

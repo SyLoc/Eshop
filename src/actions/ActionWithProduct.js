@@ -68,9 +68,9 @@ export const addToCart = (value) => async (dispatch) =>{
   }
 }
 
-export const updateCart = (value) => async (dispatch) =>{
+export const updateCart = (id,value) => async (dispatch) =>{
   try {
-    const res = await axios.put('/favorites', value)
+    const res = await axios.patch(`/favorites/${id}`, value)
     dispatch({type: UPDATE_CART, payload:res})
   } catch (error) {
     console.log("error@: ", error)

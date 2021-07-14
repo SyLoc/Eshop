@@ -17,6 +17,7 @@ const HeaderSearch = () => {
 
   const isLogin = useSelector(state => state.lo.isLogin);
   const products = useSelector(state => state.pro.products);
+  const carts = useSelector(state => state.sale.cart);
 
   useEffect(() => {
     const getCart = async () => {
@@ -26,7 +27,10 @@ const HeaderSearch = () => {
         .then(data => {
           const item = data.find(item => item.idUser === infoUser.id)
           if(item === undefined) return 0
+          else{
+            localStorage.setItem('cartInfo', JSON.stringify(item))
             return item.products
+          }
         })
         .then(listProduct => {
           const newPro = []
@@ -49,7 +53,7 @@ const HeaderSearch = () => {
     if (isLogin) {
       getCart()
     }
-  }, [products,isLogin]);
+  }, [products,isLogin,carts]);
 
 
   const handleSubmit = (e) => {
