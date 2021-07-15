@@ -4,19 +4,18 @@ import {AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai'
 import {RiArrowRightSLine, RiArrowLeftSLine} from 'react-icons/ri'
 import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import Loading from '../../Loading';
+import Loading from '../components/Loading';
 
-import {getSingleProduct} from '../../../actions/ActionWithProduct'
-import {addToCart, updateCart} from '../../../actions/ActionWithProduct'
-import NotifiModal from '../../modals/NotifiModal'
+import {getSingleProduct,addToCart,updateCart} from '../actions/ActionWithProduct'
+import NotifiModal from '../components/modals/NotifiModal'
 
 const SingleProduct = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
   const product = useSelector(state => state.pro.singleProduct)
   const loading = useSelector(state => state.pro.singleProductLoading)
-  // const cart = useSelector(state => state.sale.cart)
   const isLogin = useSelector(state => state.lo.isLogin)
+
   const [numberAmount, setNumberAmount] = useState(1)
 
   const {
@@ -33,24 +32,29 @@ const SingleProduct = () => {
 
   const [notifi, setNotifi] = useState(false)
   
-  const handleChangeInput = (e) =>{
-    console.log(e.target.defaultValue)
+
+  const decrease = () =>{
+    if(numberAmount > 1){
+      setNumberAmount(numberAmount - 1)
+    }
   }
 
-  useEffect(() => {
-    console.log(numberAmount)
-  }, [numberAmount]);
+  const increase = () =>{
+    if(numberAmount < 20){
+      setNumberAmount(numberAmount + 1)
+    }
+  }
   
   const handleClick = (id) =>{
     if(isLogin){
       let initialAmount = numberAmount;
       const userInfo = JSON.parse(localStorage.getItem('login')) || ''
-      const cartInfo = JSON.parse(localStorage.getItem('cartInfo')) || {}
+      const cartInfo = JSON.parse(localStorage.getItem('cartInfo')) || undefined
       if(cartInfo){
         const allProducts = [...cartInfo.products]
         allProducts.map((item, index) => {
           if(item.productId === id){
-            initialAmount = item.amount + 1;
+            initialAmount = item.amount + initialAmount;
             allProducts.splice(index,1)
           }
           return 0
@@ -66,8 +70,9 @@ const SingleProduct = () => {
             }
           ]
         }
-        dispatch(updateCart(idCart,product))
-        setNotifi(true)
+        dispatch(updateCart(idCart,product, (res) =>{
+          if(res) setNotifi(true)
+        }))
       }
       else{
         const product = {
@@ -79,15 +84,15 @@ const SingleProduct = () => {
             }
           ]
         }
-        dispatch(addToCart(product))
-        setNotifi(true)
+        dispatch(addToCart(product, (res) =>{
+          if(res) setNotifi(true)
+        }))
       }
-    }
+    }else{
+      setNotifi(true)
+    } 
   }
 
-  // useEffect(() => {
-  //   setNotifi(true)
-  // }, [cart]);
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
@@ -181,11 +186,11 @@ const SingleProduct = () => {
             <div className="singleProduct__quantity">
               <span className='singleProduct__quantity-label'>Số lượng: </span>
               <div className='singleProduct__quantity-wrap'>
-                <button onClick={e => setNumberAmount(numberAmount - 1)} className="singleProduct__quantity-btn singleProduct__quantity-decrease">
+                <button onClick={decrease} className="singleProduct__quantity-btn singleProduct__quantity-decrease">
                   <i><AiOutlineMinus/></i>
                 </button>
-                <input onChange={handleChangeInput} className='singleProduct__quantity-input' defaultValue={numberAmount || 1} type="text"/>
-                <button onClick={e => setNumberAmount(numberAmount + 1)} className="singleProduct__quantity-btn singleProduct__quantity-increase">
+                <input readOnly className='singleProduct__quantity-input' value={numberAmount} type="text"/>
+                <button onClick={increase} className="singleProduct__quantity-btn singleProduct__quantity-increase">
                   <i><AiOutlinePlus/></i>
                 </button>
               </div>

@@ -1,31 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { GiShoppingCart } from 'react-icons/gi'
-import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md'
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
-import { BiCheck } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 import '../css/cart.css'
 import Footer from '../components/footer/Footer';
+import CartItems from '../components/cart/cart.items';
 
-
+import {useSelector} from 'react-redux'
 
 
 const Cart = () => {
   const [carts, setCarts] = useState([])
-  const [openX, setOpenX] = useState('')
+  const carttt =  useSelector(state => state.sale.cart);
 
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem('carts')) || []
-    setCarts(cart)
-  }, []);
+    // const cart = JSON.parse(localStorage.getItem('cart')) || []
+    setCarts(carttt)
+  }, [carttt]);
 
-  const handleChangeInput = () => {
-
+  const increase = (product) => {
+    const exist = carts.find(item => item.id === product.id)
+    if(exist){
+      setCarts(
+        carts.map(item => item.id === product.id ? {...exist, amount: exist.amount + 1} : item)
+      );
+    }else{
+      setCarts([...carts, {...product, amount:1}])
+    }
   }
 
-  const handleClick = (id) =>{
-    console.log(id)
-    setOpenX(id)
+  const decrease = (product) => {
+    const exist = carts.find(item => item.id === product.id)
+    if(exist.amount === 1){
+      setCarts(carts.filter(item => item.id !== product.id))
+    }else{
+      setCarts(
+        carts.map(item => item.id === product.id ? {...exist, amount: exist.amount - 1} : item)
+      );
+    }
   }
 
   if (carts.length === 0) {
@@ -67,81 +78,11 @@ const Cart = () => {
 
         <div className='cart__main-container'>
           <div className="cart__main-container__list">
-            {
-              carts.map((item, index) => {
-                const {id, name, image, priceCurrent, amount} = item
-                // console.log(parseInt(priceCurrent))
-                return (
-                  <div key={index} className="cart__main-container__item">
-                    <div className='cart__main-container__item-checkbox'>
-                      <input className='cart__main-header__check' type="checkbox" />
-                    </div>
-                    <div className='cart__main-container__item-product'>
-                      <a href='/abc' className='cart__main-container__item-product-link'>
-                        <img className='container__item__product-img' src={image} alt="" />
-                        <div className='container__item__product-name__wrap'>
-                          <div className='container__item__product-name'>{name}</div>
-                        </div>
-                      </a>
-                    </div>
-                    <div className={`cart__main-container__item-category ${openX === id ? 'cart__main-container__item-category--active' : null}`}>
-                      {/* cart__main-container__item-category--active */}
-                      <div className='container__item-category__header'>
-                        <span>Phân loại hàng: </span>
-                        <div onClick={e => handleClick(id)}>
-                          <button className='container__item-category__header-btnDown'><MdArrowDropDown /></button>
-                          <button className='container__item-category__header-btnUp'><MdArrowDropUp /></button>
-                        </div>
-                      </div>
-                      <div className='container__item-category__content'>
-                        <span>ĐEN</span>
-                      </div>
-                      <div className='container__item-category__modal' >
-                        <span className='container__item-category__modal-title'>Loại: </span>
-                        <ul className='container__item-category__modal-list'>
-                          <li className='container__item-category__modal-item category__modal-item--active'>
-                            <button className='container__item-category__modal-item-btn' >ĐEN</button>
-                            <div className='container__item-category__modal-item-icon'><BiCheck /></div>
-                          </li>
-                          <li className='container__item-category__modal-item '>
-                            <button className='container__item-category__modal-item-btn' >TRẮNG</button>
-                            <div className='container__item-category__modal-item-icon'><BiCheck /></div>
-                          </li>
-                          <li className='container__item-category__modal-item'>
-                            <button className='container__item-category__modal-item-btn' >VÀNG</button>
-                            <div className='container__item-category__modal-item-icon'><BiCheck /></div>
-                          </li>
-                        </ul>
-                        <div className='container__item-category__modal-buttons'>
-                          <button onClick={e => setOpenX('')} className='btn btn--normal'>Trở lại</button>
-                          <button className='btn btn--primary'>Xác nhận</button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className='cart__main-container__item-price'>
-                      <span>{priceCurrent}</span>
-                    </div>
-                    <div className='cart__main-container__item-amount'>
-                      <div className='container__item-amount-wrap'>
-                        <button className="container__item-amount-btn container__item-amount-decrease">
-                          <i><AiOutlineMinus /></i>
-                        </button>
-                        <input onChange={handleChangeInput} className='container__item-amount-input' defaultValue={amount} type="text" />
-                        <button className="container__item-amount-btn container__item-amount-increase">
-                          <i><AiOutlinePlus /></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div className='cart__main-container__item-total'>
-                      <span>{priceCurrent}</span>
-                    </div>
-                    <div className='cart__main-container__item-manipulation'>
-                      <button>Xóa</button>
-                    </div>
-                  </div>
-                )
-              })
-            }
+            <CartItems 
+              decrease={decrease} 
+              increase={increase}
+              carts={carts} 
+            />
           </div>
         </div>
         <div className='cart__main-sell'>

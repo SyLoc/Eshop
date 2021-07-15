@@ -1,5 +1,4 @@
 
-
 import {
   ADD_TO_CART,
   UPDATE_CART
@@ -23,6 +22,12 @@ const SaleReducer = (state = initialState, action) => {
         ...state,
         cart: updateCart
       };
+    case 'ALL_TO_CART':
+      // console.log(action.payload)
+      return{
+        ...state,
+        cart: action.payload
+      }
     default:
       return state;
   }

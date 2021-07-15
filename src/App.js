@@ -18,7 +18,7 @@ import Home from './page/Home'
 import About from './page/About'
 import Error from './page/Error'
 import Contacts from './page/Contacts'
-import SingleProduct from './components/main/products/SingleProduct';
+import SingleProduct from './page/SingleProduct';
 import Modal from './components/modals/Modal';
 import Cart from './page/Cart';
 import Checkout from './page/Checkout';

@@ -47,7 +47,6 @@ export const getAll_User = async() => {
   }
 }
 
-
 // product 
 
 export const getAllCart = async() =>{
@@ -59,19 +58,21 @@ export const getAllCart = async() =>{
   }
 }
 
-export const addToCart = (value) => async (dispatch) =>{
+export const addToCart = (value,callBack) => async (dispatch) =>{
   try {
     const res = await axios.post('/favorites', value)
     dispatch({type:ADD_TO_CART, payload:res})
+    return callBack(res)
   } catch (error) {
     console.log("error@: ", error)
   }
 }
 
-export const updateCart = (id,value) => async (dispatch) =>{
+export const updateCart = (id,value,callBack) => async (dispatch) =>{
   try {
     const res = await axios.patch(`/favorites/${id}`, value)
     dispatch({type: UPDATE_CART, payload:res})
+    return callBack(res)
   } catch (error) {
     console.log("error@: ", error)
   }

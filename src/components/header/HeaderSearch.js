@@ -45,16 +45,19 @@ const HeaderSearch = () => {
               }
             }
           }
-          localStorage.setItem('carts', JSON.stringify(newPro))
           setCart(newPro)
+          dispatch({type: 'ALL_TO_CART', payload:newPro})
         })
         .catch(error => console.log('Error from HeaderSearch.js file',error))
     }
     if (isLogin) {
       getCart()
     }
-  }, [products,isLogin,carts]);
+  }, [products,isLogin,dispatch]);
 
+  useEffect(() => {
+    setCart(carts)
+  }, [carts]);
 
   const handleSubmit = (e) => {
     e.preventDefault()
