@@ -7,14 +7,14 @@ import {FaFacebookSquare} from 'react-icons/fa'
 import {
   LOGIN
 }from '../../constant/constants'
-import { addUser, getAll_User } from '../../actions/ActionWithProduct';
+import { addUser } from '../../actions/ActionWithProduct';
 
 
-const FormSocials = ({closeModal, setLoading, setMessage}) => {
+const FormSocials = ({closeModal, setMessage}) => {
 
   const dispatch = useDispatch();
   const [users, setUsers] = useState([])
-  const isLogin = useSelector(state => state.lo.isLogin);
+  const userList = useSelector(state => state.lo.users);
 
   // const responseFacebook = (res) =>{
   //   console.log("login result:", res)
@@ -25,21 +25,20 @@ const FormSocials = ({closeModal, setLoading, setMessage}) => {
   // }
 
   useEffect(() => {
-    getAll_User()
-      .then((res) => setUsers(res.data))
-      .catch((error) => console.log(error))
-  }, [isLogin]);
+    setUsers(userList)
+  }, [userList]);
   
 
   const responseGoogle = (response) =>{
     try {
-      // console.log(response.profileObj)
       let login = false
       const data = response.profileObj
       users.forEach((item) =>{
         if(item.googleId === data.googleId){
+          console.log('co vao day')
           login = true
           const user = {
+            id: item.id,
             name: data.name,
             email: data.email,
             img: data.imageUrl
@@ -51,7 +50,7 @@ const FormSocials = ({closeModal, setLoading, setMessage}) => {
       if(login === false){
         const id_random = new Date().getTime().toString()
         const user = {
-          idUser: id_random.substr(8),
+          id: id_random.substr(8),
           email: data.email,
           password: '',
           name: data.name,
@@ -65,7 +64,6 @@ const FormSocials = ({closeModal, setLoading, setMessage}) => {
         dispatch(addUser(user))
         closeModal()
       }
-      // login
     } catch (error) {
       console.log('error @123: ', error)
     }

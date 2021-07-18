@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import "./modal.css"
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import {getAll_User} from '../../actions/ActionWithProduct' 
 
 import {
   CLOSE_MODAL
@@ -18,6 +19,10 @@ const Modal = () => {
   const openModal = useSelector(state => state.lo.openModal);
   const modalContent = useSelector(state => state.lo.modalContent);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAll_User())
+  }, [dispatch]);
 
   const closeModal = () =>{
     dispatch({type: CLOSE_MODAL})

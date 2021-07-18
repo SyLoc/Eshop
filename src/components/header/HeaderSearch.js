@@ -5,59 +5,14 @@ import { Link } from 'react-router-dom';
 
 import { SEARCH_TERM } from '../../constant/constants'
 import NotifiModal from '../modals/NotifiModal'
-import { getAllCart } from '../../actions/ActionWithProduct'
 
 
-const HeaderSearch = () => {
+const HeaderSearch = ({cart}) => {
   const [SearchTerm, setSearchTerm] = useState("");
-  const [cart, setCart] = useState([])
   const [openModal, setOpenModal] = useState(false)
 
-  const dispatch = useDispatch()
-
   const isLogin = useSelector(state => state.lo.isLogin);
-  const products = useSelector(state => state.pro.products);
-  const carts = useSelector(state => state.sale.cart);
-
-  useEffect(() => {
-    const getCart = async () => {
-      const infoUser = JSON.parse(localStorage.getItem('login'));
-      getAllCart()
-        .then(res => res.data)
-        .then(data => {
-          const item = data.find(item => item.idUser === infoUser.id)
-          if(item === undefined) return 0
-          else{
-            localStorage.setItem('cartInfo', JSON.stringify(item))
-            return item.products
-          }
-        })
-        .then(listProduct => {
-          const newPro = []
-          for (let i = 0; i < products.length; i++) {
-            for (let k = 0; k < listProduct.length; k++) {
-              if (products[i].id === listProduct[k].productId) {
-                let setProducts = {
-                  ...products[i],
-                  amount: listProduct[k].amount
-                }
-                newPro.push(setProducts)
-              }
-            }
-          }
-          setCart(newPro)
-          dispatch({type: 'ALL_TO_CART', payload:newPro})
-        })
-        .catch(error => console.log('Error from HeaderSearch.js file',error))
-    }
-    if (isLogin) {
-      getCart()
-    }
-  }, [products,isLogin,dispatch]);
-
-  useEffect(() => {
-    setCart(carts)
-  }, [carts]);
+  const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault()

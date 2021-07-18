@@ -1,36 +1,80 @@
 
 import {
+  GET_ALL_CART,
   ADD_TO_CART,
-  UPDATE_CART
+  UPDATE_CART,
+  SET_CART
 }from '../constant/constants'
 
 const initialState = {
-  cart:[]
+  cart:[],
+  cartInfo:{
+    id:0,
+    idUser:'',
+    products:[]
+  }
 }
 
 const SaleReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_TO_CART:
-      const newCart = [...state.cart, action.payload.data]
+    case GET_ALL_CART:
+      const data = action.payload.data
       return {
         ...state,
-        cart: newCart
+        cartInfo: confi(data)
       }
-    case UPDATE_CART:
-      const updateCart = action.payload.data
-      return{
-        ...state,
-        cart: updateCart
-      };
-    case 'ALL_TO_CART':
-      // console.log(action.payload)
-      return{
+    case SET_CART:{
+      return {
         ...state,
         cart: action.payload
       }
+    }
+    case ADD_TO_CART:
+      const afterAdd  = action.payload.data
+      var newAfterAdd = {
+        id:afterAdd.id,
+        idUser:afterAdd.idUser,
+        products:afterAdd.products
+      }
+      return {
+        ...state,
+        cartInfo:newAfterAdd
+      }
+    case UPDATE_CART:
+      const afterUpdate = action.payload.data
+      const newAfterUpdate = {
+        id:afterUpdate.id,
+        idUser:afterUpdate.idUser,
+        products:afterUpdate.products
+      }
+      return{
+        ...state,
+        cartInfo:newAfterUpdate
+      };
     default:
       return state;
   }
 };
+
+
+const confi = (data) =>{
+  const infoUser = JSON.parse(localStorage.getItem('login')) || {}
+  const exist = data.find(item => item.idUser === infoUser.id)
+  let newCartInfo = {
+    id: 0,
+    idUser:'',
+    products:[]
+  }
+  if(exist){
+    return newCartInfo = {
+      id: exist.id,
+      idUser:exist.idUser,
+      products:exist.products
+    }
+  }else{
+    return newCartInfo
+  }
+}
+
 
 export default SaleReducer

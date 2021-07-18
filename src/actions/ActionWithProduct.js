@@ -1,12 +1,14 @@
 import axios from '../link/axios'
 
 import {
+  GET_ALL_USER,
   SET_PRODUCT_LIST,
   SET_SINGLE_PRODUCT,
   ADD_CUSTOMER,
   ADD_TO_CART,
   UPDATE_CART,
-  DELETE_CART
+  DELETE_CART,
+  GET_ALL_CART
 } from '../constant/constants'
 
 export const getProductList = () => async (dispatch) => {
@@ -38,10 +40,10 @@ export const addUser = (user) => async (dispatch) =>{
   }
 }
 
-export const getAll_User = async() => {
+export const getAll_User = () => async (dispatch) => {
   try {
     const res = await axios.get(`/users`)
-    return res
+    dispatch({type: GET_ALL_USER, payload:res})
   } catch (error) {
     console.log(error)
   }
@@ -49,12 +51,12 @@ export const getAll_User = async() => {
 
 // product 
 
-export const getAllCart = async() =>{
+export const getAllCart = () => async (dispatch) =>{
   try {
     const res = await axios.get('/favorites')
-    return res
+    dispatch({type: GET_ALL_CART,payload:res})
   } catch (error) {
-    console.log("error@: ", error)
+    console.log("error: ", error)
   }
 }
 
@@ -70,7 +72,7 @@ export const addToCart = (value,callBack) => async (dispatch) =>{
 
 export const updateCart = (id,value,callBack) => async (dispatch) =>{
   try {
-    const res = await axios.patch(`/favorites/${id}`, value)
+    const res = await axios.put(`/favorites/${id}`, value)
     dispatch({type: UPDATE_CART, payload:res})
     return callBack(res)
   } catch (error) {

@@ -1,9 +1,8 @@
 import React,{useState, useEffect} from 'react';
 import {FaRegLightbulb} from 'react-icons/fa'
-import {CgCloseO} from 'react-icons/cg'
-import {getAll_User} from '../../actions/ActionWithProduct'
+import {CgCloseO} from 'react-icons/cg' 
 
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import {
   LOGIN
 }from '../../constant/constants'
@@ -16,10 +15,14 @@ const SignIn = ({closeModal, showSignIn, handleClick}) => {
   const [valueSignIn, setValueSignIn] = useState({email:'', password:''})
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
+  const [users, setUsers] = useState([])
+  const userList = useSelector(state => state.lo.users);
 
   const dispatch = useDispatch();
 
-
+  useEffect(() => {
+    setUsers(userList)
+  }, [userList]);
 
   const onchangeInputSignIn = (e) =>{
     setValueSignIn({
@@ -33,32 +36,30 @@ const SignIn = ({closeModal, showSignIn, handleClick}) => {
     e.preventDefault()
     if(valueSignIn.email !== '' && valueSignIn.password !== ''){
       setLoading(true)
-      getAll_User()
-        .then((res) => {
-          setLoading(false)
-          const arr = res.data
-          let loginFail = true
-          arr.forEach(item =>{
-            if(item.email === valueSignIn.email && item.password === valueSignIn.password){
-              const user = {
-                id: item.id,
-                name: item.name,
-                email: item.email,
-                img: item.img
-              }
-              dispatch({type: LOGIN, payload: user})
-              setMessage('Đăng nhập thành công')
-              setValueSignIn({email:"", password:""})
-              loginFail = false
-              setMessage('')
-              closeModal()
-            }
-          })
-          if(loginFail){
-            setMessage("Đăng nhập thất bại, xin mời nhập lại")
-            setValueSignIn({...valueSignIn, password:""})
+      setTimeout(()=>{
+        setLoading(false)
+      },1000)
+      let loginFail = true
+      users.forEach(item =>{
+        if(item.email === valueSignIn.email && item.password === valueSignIn.password){
+          const user = {
+            id: item.id,
+            name: item.name,
+            email: item.email,
+            img: item.img
           }
-        })
+          dispatch({type: LOGIN, payload: user})
+          setMessage('Đăng nhập thành công')
+          setValueSignIn({email:"", password:""})
+          loginFail = false
+          setMessage('')
+          closeModal()
+        }
+      })
+      if(loginFail){
+        setMessage("Đăng nhập thất bại, xin mời nhập lại")
+        setValueSignIn({...valueSignIn, password:""})
+      }
     }else{
       setMessage('Hãy nhập đầy đủ thông tin')
     }

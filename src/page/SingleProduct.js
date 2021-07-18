@@ -15,6 +15,7 @@ const SingleProduct = () => {
   const product = useSelector(state => state.pro.singleProduct)
   const loading = useSelector(state => state.pro.singleProductLoading)
   const isLogin = useSelector(state => state.lo.isLogin)
+  const cartInfo =  useSelector(state => state.sale.cartInfo);
 
   const [numberAmount, setNumberAmount] = useState(1)
 
@@ -49,8 +50,7 @@ const SingleProduct = () => {
     if(isLogin){
       let initialAmount = numberAmount;
       const userInfo = JSON.parse(localStorage.getItem('login')) || ''
-      const cartInfo = JSON.parse(localStorage.getItem('cartInfo')) || undefined
-      if(cartInfo){
+      if(cartInfo.id !== 0){
         const allProducts = [...cartInfo.products]
         allProducts.map((item, index) => {
           if(item.productId === id){
@@ -61,14 +61,14 @@ const SingleProduct = () => {
         })
         const idCart = cartInfo.id
         const product = {
-          // idUser: userInfo.id,
+          idUser: userInfo.id,
           products: [
             ...allProducts,
             {
               productId:id,
               amount:initialAmount
             }
-          ]
+          ] 
         }
         dispatch(updateCart(idCart,product, (res) =>{
           if(res) setNotifi(true)
@@ -97,9 +97,10 @@ const SingleProduct = () => {
   useEffect(() => {
     const timeOut = setTimeout(() => {
       setNotifi(false)
-    }, 2000);
+    }, 1500);
     return () => clearTimeout(timeOut)
   }, [notifi]);
+
 
   useEffect(() => {
     dispatch(getSingleProduct(id))

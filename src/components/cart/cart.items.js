@@ -3,55 +3,38 @@ import React, { useState } from 'react';
 import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { BiCheck } from 'react-icons/bi'
+import { Link } from 'react-router-dom';
 
-const CartItems = ({carts, decrease, increase}) => {
+const CartItems = ({carts, decrease, increase, checkInput, covert, convertStr, deleteItem}) => {
   const [openX, setOpenX] = useState('')
-
-
-
-  const totalize = (price, amount) => {
-    let result = Number(price.split('.').join('')) * amount
-    result = String(result).split('')
-    let count = 0;
-    const arr = []
-    for (let i = result.length - 1; i >= 0; i--) {
-      count++;
-      if (count === 3) {
-        count = 0;
-        if (i !== 0) {
-          arr.unshift('.' + result[i])
-        } else {
-          arr.unshift(result[i])
-        }
-      } else {
-        arr.unshift(result[i])
-      }
-    }
-    return arr.join('')
-  }
 
   const handleClick = (id) => {
     setOpenX(id)
   }
 
-
   return (
-    <>{
+    <> 
+    {/* { checkAll ? boolean = true : boolean = false} */}
+    {
       carts.map((item) => {
         const { id, name, image, priceCurrent, amount } = item
-        const total = totalize(priceCurrent, amount)
+        
+        let total = convertStr(priceCurrent)*amount
+            total = covert(total)
         return (
           <div key={id} className="cart__main-container__item">
             <div className='cart__main-container__item-checkbox'>
-              <input className='cart__main-header__check' type="checkbox" />
+              <input 
+                
+                onChange={checkInput} name={id} className='cart__main-header__check' type="checkbox" />
             </div>
             <div className='cart__main-container__item-product'>
-              <a href='/abc' className='cart__main-container__item-product-link'>
+              <Link to={`/singleProduct/${id}`} className='cart__main-container__item-product-link'>
                 <img className='container__item__product-img' src={image} alt="" />
                 <div className='container__item__product-name__wrap'>
                   <div className='container__item__product-name'>{name}</div>
                 </div>
-              </a>
+              </Link>
             </div>
             <div className={`cart__main-container__item-category ${openX === id ? 'cart__main-container__item-category--active' : null}`}>
               {/* cart__main-container__item-category--active */}
@@ -91,7 +74,7 @@ const CartItems = ({carts, decrease, increase}) => {
             </div>
 
             <div className='cart__main-container__item-price'>
-              <span>{priceCurrent}</span>
+              <span>₫{priceCurrent}</span>
             </div>
 
             <div className='cart__main-container__item-amount'>
@@ -107,11 +90,11 @@ const CartItems = ({carts, decrease, increase}) => {
             </div>
 
             <div className='cart__main-container__item-total'>
-              <span>{total}</span>
+              <span>₫{total}</span>
             </div>
 
             <div className='cart__main-container__item-manipulation'>
-              <button>Xóa</button>
+              <button onClick={e => deleteItem(id)} >Xóa</button>
             </div>
           </div>
         )

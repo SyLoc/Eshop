@@ -3,11 +3,13 @@ import {
   CLOSE_MODAL,
   ADD_CUSTOMER,
   LOGIN,
-  LOGOUT
+  LOGOUT,
+  GET_ALL_USER
 }from '../constant/constants'
 
 
 const initialState = {
+  users:[],
   openModal:false,
   modalContent:'',
   isLogin:false,
@@ -16,6 +18,12 @@ const initialState = {
 
 const LoginReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_ALL_USER:{
+      return {
+        ...state,
+        users:action.payload.data
+      }
+    }
     case OPEN_MODAL:
       return {
         ...state,
@@ -36,10 +44,13 @@ const LoginReducer = (state = initialState, action) => {
         img:action.payload.data.img
       }
       localStorage.setItem('login',JSON.stringify(infoUser))
+      console.log(action.payload.data)
+      const newCustomer = [...state.users, action.payload.data]
       return {
         ...state,
         infoCustomer: infoUser,
-        isLogin:true
+        isLogin:true,
+        users: newCustomer
       }
     case LOGIN:
       const newInfo = {
@@ -62,8 +73,6 @@ const LoginReducer = (state = initialState, action) => {
         img:''
       }
       localStorage.removeItem('login')
-      localStorage.removeItem('carts')
-      localStorage.removeItem('cartInfo')
       return{
         ...state,
         isLogin:false,
