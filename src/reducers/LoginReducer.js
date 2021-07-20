@@ -44,7 +44,6 @@ const LoginReducer = (state = initialState, action) => {
         img:action.payload.data.img
       }
       localStorage.setItem('login',JSON.stringify(infoUser))
-      console.log(action.payload.data)
       const newCustomer = [...state.users, action.payload.data]
       return {
         ...state,
@@ -73,6 +72,7 @@ const LoginReducer = (state = initialState, action) => {
         img:''
       }
       localStorage.removeItem('login')
+      localStorage.removeItem('order')
       return{
         ...state,
         isLogin:false,

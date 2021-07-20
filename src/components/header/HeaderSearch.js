@@ -126,7 +126,7 @@ const HeaderSearch = ({cart}) => {
                           </div>
                           <div className="header__cart-item-body">
                             <span className="header__cart-item-description">
-                              Phân loại: {type}
+                              {type !== '' && <span>Phân loại:</span>} {type}
                             </span>
                             <span className="header__cart-item-delete">Xóa</span>
                           </div>

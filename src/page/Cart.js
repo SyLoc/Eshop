@@ -34,16 +34,14 @@ const Cart = () => {
 
 
   const checkInputAll = (e) => {
-    // const {checked} = e.target
-    // const arr = []
-    // if(checked){
-    //   carts.map(item => arr.unshift(item.id))
-    //   setStateAll(arr)
-    //   setCheckAll(true)
-    // }else{
-    //   setStateAll([])
-    //   setCheckAll(false)
-    // }
+    const {checked} = e.target
+    const arr = []
+    if(checked){
+      carts.map(item => arr.unshift(item.id))
+      setSelectedProducts(arr)
+    }else{
+      setSelectedProducts([])
+    }
   }
 
 
@@ -61,10 +59,11 @@ const Cart = () => {
   const convertArr = (array) => {
     let arr = []
     array.forEach(x => {
-      const { id, amount } = x
+      const { id, amount, type } = x
       const newItem = {
         productId: id,
-        amount: amount
+        amount: amount,
+        type: type
       }
       arr.unshift(newItem)
     })
@@ -86,7 +85,6 @@ const Cart = () => {
     } else {
       setCarts([...carts, { ...product, amount: 1 }])
     }
-
   }
 
   const decrease = (product) => {
@@ -102,9 +100,7 @@ const Cart = () => {
           ...newCart
         ]
       }
-      dispatch(updateCart(cartInfo.id, listOfProducts, (data) => {
-        console.log(data.data)
-      }))
+      dispatch(updateCart(cartInfo.id, listOfProducts, (data) => {}))
     }
   }
 
@@ -112,6 +108,21 @@ const Cart = () => {
     const exist = carts.find(item => item.id === id)
     if (exist) {
       let newCart = carts.filter(x => x.id !== id)
+      newCart = convertArr(newCart)
+      const listOfProducts = {
+        idUser: cartInfo.idUser,
+        products: [
+          ...newCart
+        ]
+      }
+      dispatch(updateCart(cartInfo.id, listOfProducts, (data) => {}))
+    }
+  }
+
+  const setType = (proId, typePro) =>{
+    const exist = carts.find(item => item.id === proId)
+    if(exist){
+      let newCart = carts.map(item => item.id === proId ? { ...exist, type: typePro } : item)
       newCart = convertArr(newCart)
       const listOfProducts = {
         idUser: cartInfo.idUser,
@@ -150,6 +161,20 @@ const Cart = () => {
     return arr.join('')
   }
 
+  const order = () =>{
+    const arr = []
+    for(let i=0; i < carts.length; i++){
+      for(let z=0; z < selectedProducts.length; z++){
+        if(carts[i].id === selectedProducts[z]){
+          arr.unshift(carts[i])
+        }
+      }
+    }
+    localStorage.setItem('order', JSON.stringify(arr))
+  }
+
+
+
   useEffect(() => {
     let arr = []
     let count = 0
@@ -177,6 +202,8 @@ const Cart = () => {
       </section>
     )
   }
+
+
 
   return (
     <section className='grid'>
@@ -208,6 +235,7 @@ const Cart = () => {
               covert={covert}
               convertStr={convertStr}
               deleteItem={deleteItem}
+              setType={setType}
             />
           </div>
         </div>
@@ -220,7 +248,10 @@ const Cart = () => {
           <div className="cart__main-sell-right">
             <span className='cart__main-sell-right__total-payment'>Tổng thanh toán ({selectedQuantity} Sản phẩm):</span>
             <span className='cart__main-sell-right__total-payment total-payment--highlight'>₫{total}</span>
-            <Link to='/checkout' className='btn btn--primary'>Mua hàng</Link>
+            {
+              selectedProducts.length > 0 ? (<Link to='/checkout' onClick={order} className='btn btn--primary'>Mua hàng</Link>) :
+              (<Link to='' className='btn btn--primary btn--disabled'>Mua hàng</Link>)
+            }
           </div>
         </div>
       </div>

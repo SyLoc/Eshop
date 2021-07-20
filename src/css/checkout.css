@@ -119,8 +119,9 @@
 }
 
 .checkout__main-body-header-left{
-  flex: 1;
+  flex: 40%;
 }
+
 
 .checkout__main-body-header-left h3{
   font-size: 1.8rem;
@@ -129,7 +130,7 @@
 }
 
 .checkout__main-body-header-right{
-  flex: 1;
+  flex: 60%;
   display: flex;
   justify-content: space-around;
 }
@@ -169,7 +170,7 @@
 }
 
 .checkout__main-body__list-left{
-  flex: 1;
+  flex: 38%;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -179,6 +180,7 @@
   width: 45px;
   height: 45px;
   margin-right: 10px;
+  border: 1px solid #f2f2f2;
 }
 
 .checkout__main-body__list-left__name{
@@ -190,7 +192,7 @@
 }
 
 .checkout__main-body__list-right{
-  flex: 1;
+  flex: 62%;
   display: flex;
   justify-content: space-around;
 }
@@ -201,9 +203,10 @@
   color: var(--text-color);
 }
 
-.checkout__main-body__list-right span:nth-child(2){
+
+/* .checkout__main-body__list-right span:nth-child(2){
   min-width: 60px;
-}
+} */
 
 /* body__footer */
 

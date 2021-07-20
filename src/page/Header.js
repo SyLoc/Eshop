@@ -18,15 +18,16 @@ const Header = () => {
   const listCart = useSelector(state => state.sale.cartInfo.products);
   // const cart =  useSelector(state => state.sale.cart);
 
-  useEffect(() => {
+  useEffect(() => { 
     if(listCart.length !== 0){
       const newPro = []
-      for (let i = 0; i < productArr.length; i++) {
+      for (let i = 0; i < productArr.length; i++) { 
         for (let k = 0; k < listCart.length; k++) {
           if (productArr[i].id === listCart[k].productId) {
             let setProducts = {
               ...productArr[i],
-              amount: listCart[k].amount
+              amount: listCart[k].amount,
+              type: listCart[k].type
             }
             newPro.push(setProducts)
           }
@@ -51,6 +52,6 @@ const Header = () => {
       </div>
     </header>
   );
-};
+}; 
 
 export default Header;

@@ -38,3 +38,7 @@ export const DELETE_CART = 'DELETE_CART'
 
 export const SET_CART = 'SET_CART'
 
+// order
+
+export const ADD_ORDER = 'ADD_ORDER'
+

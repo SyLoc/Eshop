@@ -572,6 +572,17 @@
   flex: 1;
 }
 
+/* ======================  singleProduct__type ======================= */
+
+.singleProduct__type{
+  margin-top: 15px;
+  display: flex;
+}
+
+.singleProduct__type--hide{
+  display: none;
+}
+
 .singleProduct__quantity{
   margin-top: 15px;
   font-size: 1.6rem;
@@ -607,6 +618,11 @@
   text-align: center;
   position: relative;
   top: 2px;
+}
+
+.btn--disabled{
+  cursor: no-drop;
+  opacity: .5;
 }
 
 .singleProduct__quantity-input{

@@ -35,7 +35,6 @@ const FormSocials = ({closeModal, setMessage}) => {
       const data = response.profileObj
       users.forEach((item) =>{
         if(item.googleId === data.googleId){
-          console.log('co vao day')
           login = true
           const user = {
             id: item.id,

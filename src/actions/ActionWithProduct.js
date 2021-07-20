@@ -8,7 +8,8 @@ import {
   ADD_TO_CART,
   UPDATE_CART,
   DELETE_CART,
-  GET_ALL_CART
+  GET_ALL_CART,
+  ADD_ORDER
 } from '../constant/constants'
 
 export const getProductList = () => async (dispatch) => {
@@ -72,7 +73,7 @@ export const addToCart = (value,callBack) => async (dispatch) =>{
 
 export const updateCart = (id,value,callBack) => async (dispatch) =>{
   try {
-    const res = await axios.put(`/favorites/${id}`, value)
+    const res = await axios.patch(`/favorites/${id}`, value)
     dispatch({type: UPDATE_CART, payload:res})
     return callBack(res)
   } catch (error) {
@@ -82,9 +83,21 @@ export const updateCart = (id,value,callBack) => async (dispatch) =>{
 
 export const deleteCart = (value) => async (dispatch) =>{
   try {
-    const res = await axios.delete('favorites/', value)
+    const res = await axios.delete('/favorites/', value)
     dispatch({type: DELETE_CART, payload:res})
   } catch (error) {
     console.log("error@: ", error)
   }
 }
+
+// order
+
+export const addOrder = (value) => async (dispatch) =>{
+  try {
+    const res = await axios.post('/order', value)
+    dispatch({type: ADD_ORDER, payload:res})
+  } catch (error) {
+    console.log("error@: ", error)
+  }
+}
+

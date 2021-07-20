@@ -76,6 +76,7 @@
   width: 20px;
 }
 
+
 .cart__main-header-left .cart__main-header__content{
   margin-left: 20px;
 }
@@ -111,6 +112,18 @@
   padding: 0 40px;
   margin-top: 10px;
 }
+
+.cart__main-container__item-left{
+  display: flex;
+  align-items: center;
+  min-width: 46%;
+}
+
+.cart__main-container__item-right{
+  display: flex;
+  align-items: center;
+}
+
 
 .cart__main-container__item-product{
   margin-left: 20px;
@@ -148,6 +161,11 @@
 .cart__main-container__item-category{
   margin-left: 20px;
   position: relative;
+  display: none;
+}
+
+.item-category--show{
+  display: block;
 }
 
 
@@ -195,7 +213,7 @@
   display: none;
   position: absolute;
   top: 55px;
-  left: -120%;
+  left: -128%;
   z-index: 2;
   width: 366px;
   height: auto;
@@ -235,73 +253,8 @@
   text-transform: capitalize;
 }
 
-.container__item-category__modal-list{
-  margin-top: 10px;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
+/* category__cart-list css index.css */
 
-.container__item-category__modal-item{
-  position: relative;
-  min-width: 80px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 5px;
-  border: none;
-}
-
-.container__item-category__modal-item-btn{
-  width: 100%;
-  height: 100%;
-  font-size: 1.5rem;
-  line-height: 100%;
-  padding: 5px 15px;
-  background: none;
-  border: 1px solid #f2f2f2;
-  cursor: pointer;
-  transition: all .1s linear;
-}
-
-.container__item-category__modal-item-icon{
-  color: var(--white-color);
-  font-size: 1.3rem;
-  position: absolute;
-  top: 62%;
-  right: -1px;
-  display: none;
-}
-
-.container__item-category__modal-item-btn:hover{
-  border: 1px solid var(--primary-color);
-  color: var(--primary-color);
-}
-
-.category__modal-item--active .container__item-category__modal-item-btn{
-  border: 1px solid var(--primary-color);
-  color: var(--primary-color);
-}
-
-.category__modal-item--active .container__item-category__modal-item-icon{
-  display: block;
-}
-
-.category__modal-item--active::before{
-  content: "";
-  position: absolute;
-  top: 46%;
-  right: 0;
-  border-width: 9px 9px;
-  border-style: solid;
-  border-color: transparent var(--primary-color) var(--primary-color) transparent 
-}
-
-.container__item-category__modal-item.container__item-category__modal-item{
-  margin-left: 8px;
-}
 
 .container__item-category__modal-buttons{
   margin-top: 30px;
@@ -312,7 +265,7 @@
 .container__item-category__modal-buttons button{
   margin: 0 4px;
   text-transform: uppercase;
-}
+} 
 
 /* price css */
 
@@ -454,3 +407,5 @@
 .total-payment--highlight{
   color: var(--primary-color);
 }
+
+

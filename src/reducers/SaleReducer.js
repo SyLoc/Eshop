@@ -3,7 +3,8 @@ import {
   GET_ALL_CART,
   ADD_TO_CART,
   UPDATE_CART,
-  SET_CART
+  SET_CART,
+  ADD_ORDER
 }from '../constant/constants'
 
 const initialState = {
@@ -51,6 +52,10 @@ const SaleReducer = (state = initialState, action) => {
         ...state,
         cartInfo:newAfterUpdate
       };
+    case ADD_ORDER:
+      console.log(action.payload)
+      
+      return state
     default:
       return state;
   }
