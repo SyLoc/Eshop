@@ -73,7 +73,7 @@ export const addToCart = (value,callBack) => async (dispatch) =>{
 
 export const updateCart = (id,value,callBack) => async (dispatch) =>{
   try {
-    const res = await axios.patch(`/favorites/${id}`, value)
+    const res = await axios.put(`/favorites/${id}`, value)
     dispatch({type: UPDATE_CART, payload:res})
     return callBack(res)
   } catch (error) {
