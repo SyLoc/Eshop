@@ -112,7 +112,7 @@ const Cart = () => {
       const listOfProducts = {
         idUser: cartInfo.idUser,
         products: [
-          ...newCart
+          ...newCart 
         ]
       }
       dispatch(updateCart(cartInfo.id, listOfProducts, (data) => {}))

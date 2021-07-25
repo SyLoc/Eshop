@@ -9,7 +9,7 @@ const CartItems = ({ carts, decrease, increase, checkInput, covert, convertStr, 
   const [openX, setOpenX] = useState('')
   const [productType, setProductType] = useState('')
 
-  const handleClick = (id, x) => {
+  const handleClick = (id, x) => { 
     setOpenX(id)
     setProductType(x)
   }

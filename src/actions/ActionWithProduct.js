@@ -3,7 +3,7 @@ import axios from '../link/axios'
 import {
   GET_ALL_USER,
   SET_PRODUCT_LIST,
-  SET_SINGLE_PRODUCT,
+  SET_SINGLE_PRODUCT, 
   ADD_CUSTOMER,
   ADD_TO_CART,
   UPDATE_CART,
@@ -101,3 +101,5 @@ export const addOrder = (value) => async (dispatch) =>{
   }
 }
 
+
+// ========================

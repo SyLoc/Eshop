@@ -1,3 +1,3 @@
 import axios from './axios'
 
-// export const getUser = () => axios.get('/users');
+// export const apiCountry =  axios.create({baseURL:"https://jsonplaceholder.typicode.com"})
