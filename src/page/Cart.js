@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { GiShoppingCart } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
 import '../css/cart.css'
 import Footer from '../components/footer/Footer';
@@ -8,6 +7,7 @@ import CartItems from '../components/cart/cart.items';
 import { useSelector } from 'react-redux'
 import { updateCart } from '../actions/ActionWithProduct'
 import { useDispatch } from 'react-redux'
+import HeaderSecond from '../components/header/HeaderSecond';
 
 
 const Cart = () => {
@@ -189,10 +189,7 @@ const Cart = () => {
   if (carts.length === 0) {
     return (
       <section className='grid'>
-        <div className='cart__header'>
-          <i className='cart__header-icon'><GiShoppingCart /></i>
-          <h3 className='cart__header-content'>Giỏ hàng của bạn</h3>
-        </div>
+        <HeaderSecond text={'Giỏ hàng'} type={'cart'} />
         <div className='cart__main main-center'>
           <div>
             <h1 className='main-center-title'>Giỏ hàng của bạn đang trống hãy thêm sản phẩm vào giỏ hàng</h1>
@@ -207,10 +204,7 @@ const Cart = () => {
 
   return (
     <section className='grid'>
-      <div className='cart__header'>
-        <i className='cart__header-icon'><GiShoppingCart /></i>
-        <h3 className='cart__header-content'>Giỏ hàng của bạn</h3>
-      </div>
+      <HeaderSecond text={'Giỏ hàng'} type={'cart'} />
       <div className='cart__main'>
         <div className='cart__main-header'>
           <div className='cart__main-header-left'>

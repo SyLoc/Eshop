@@ -4,12 +4,14 @@ import {
   ADD_CUSTOMER,
   LOGIN,
   LOGOUT,
-  GET_ALL_USER
+  GET_ALL_USER,
+  UPDATE_USER
 }from '../constant/constants'
 
 
 const initialState = {
   users:[],
+  userCurrent:{},
   openModal:false,
   modalContent:'',
   isLogin:false,
@@ -38,8 +40,8 @@ const LoginReducer = (state = initialState, action) => {
       }
     case ADD_CUSTOMER:
       const infoUser = {
-        id:action.payload.data.id,
-        name:action.payload.data.name,
+        id:action.payload.data.id, 
+        name:action.payload.data.info[0].name,
         email:action.payload.data.email,
         img:action.payload.data.img
       }
@@ -52,9 +54,10 @@ const LoginReducer = (state = initialState, action) => {
         users: newCustomer
       }
     case LOGIN:
+      const nameUser = action.payload.info ? action.payload.info[0].name : action.payload.name
       const newInfo = {
         id:action.payload.id,
-        name: action.payload.name,
+        name: nameUser,
         email: action.payload.email,
         img: action.payload.img
       }
@@ -62,7 +65,8 @@ const LoginReducer = (state = initialState, action) => {
       return {
         ...state,
         infoCustomer:newInfo,
-        isLogin:true
+        isLogin:true,
+        userCurrent:action.payload
       }
     case LOGOUT:
       const resetInfoCustomer = {
@@ -78,6 +82,11 @@ const LoginReducer = (state = initialState, action) => {
         isLogin:false,
         infoCustomer: resetInfoCustomer,
         modalContent:''
+      }
+    case UPDATE_USER:
+      return {
+        ...state,
+        userCurrent:action.payload.data
       }
     default:
       return state;

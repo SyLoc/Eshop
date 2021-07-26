@@ -13,7 +13,8 @@ const initialState = {
     id:0,
     idUser:'',
     products:[]
-  }
+  },
+  order:[]
 }
 
 const SaleReducer = (state = initialState, action) => {
@@ -53,9 +54,11 @@ const SaleReducer = (state = initialState, action) => {
         cartInfo:newAfterUpdate
       };
     case ADD_ORDER:
-      console.log(action.payload)
-      
-      return state
+      const newOrder = [...state.order,action.payload]
+      return {
+        ...state,
+        order:newOrder
+      }
     default:
       return state;
   }

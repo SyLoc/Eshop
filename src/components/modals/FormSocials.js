@@ -51,10 +51,13 @@ const FormSocials = ({closeModal, setMessage}) => {
         const user = {
           id: id_random.substr(8),
           email: data.email,
-          password: '',
-          name: data.name,
-          phone: '',
-          address: '',
+          password: '',info:[{ 
+            id:id_random.substr(10),
+            name: data.name,
+            phone: '',
+            address: '',
+            address_detail:''
+          }],
           isAdmin: false,
           img: data.imageUrl,
           googleId: data.googleId,

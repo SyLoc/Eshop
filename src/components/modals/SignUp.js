@@ -40,9 +40,13 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
           id: id_random.substr(8),
           email: valueSignUp.email,
           password: valueSignUp.password,
-          name: '',
-          phone: '',
-          address: '',
+          info:[{ 
+            id:id_random.substr(10),
+            name: '',
+            phone: '',
+            address: '',
+            address_detail:''
+          }],
           isAdmin: false,
           img:'',
           googleId:'',

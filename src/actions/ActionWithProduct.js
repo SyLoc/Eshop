@@ -5,6 +5,7 @@ import {
   SET_PRODUCT_LIST,
   SET_SINGLE_PRODUCT, 
   ADD_CUSTOMER,
+  UPDATE_USER,
   ADD_TO_CART,
   UPDATE_CART,
   DELETE_CART,
@@ -36,6 +37,15 @@ export const addUser = (user) => async (dispatch) =>{
   try {
     const res = await axios.post(`/users`, user)
     dispatch({type: ADD_CUSTOMER, payload:res})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const UpdateUser = (id,value) => async (dispatch) =>{
+  try {
+    const res = await axios.put(`/users/${id}`, value)
+    dispatch({type: UPDATE_USER, payload:res})
   } catch (error) {
     console.log(error)
   }
@@ -92,10 +102,11 @@ export const deleteCart = (value) => async (dispatch) =>{
 
 // order
 
-export const addOrder = (value) => async (dispatch) =>{
+export const addOrder = (value,callBack) => async (dispatch) =>{
   try {
     const res = await axios.post('/order', value)
     dispatch({type: ADD_ORDER, payload:res})
+    return callBack(res)
   } catch (error) {
     console.log("error@: ", error)
   }

@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
+import {addOrder} from '../../actions/ActionWithProduct'
+import {useDispatch} from 'react-redux'
+import NotifiModal from '../modals/NotifiModal'
 
-const CheckoutItems = ({carts}) => {
+const CheckoutItems = ({carts, infoCustomer}) => {
+  const dispatch = useDispatch();
+  const [notifi, setNotifi] = useState(false)
 
   const covert = (value) => {
     const arr = (value + '000').split('')
@@ -35,6 +40,34 @@ const CheckoutItems = ({carts}) => {
   itemsPrice = covert(itemsPrice)
   shippingPrice = covert(shippingPrice)
   totalPrice = covert(totalPrice)
+
+  const confirm = () =>{
+    const products = JSON.parse(localStorage.getItem('order'))
+    const money = {
+      itemsPrice,
+      shippingPrice,
+      totalPrice
+    }
+
+    const value = {
+      infoUser:infoCustomer,
+      products:products, 
+      total:money
+    }
+
+    dispatch(addOrder(value,(res) =>{
+      if(res){
+        setNotifi(true)
+      }
+    }))
+  }
+
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      setNotifi(false)
+    }, 1500);
+    return () => clearTimeout(timeOut)
+  }, [notifi]);
 
   return (
     <div className="checkout__main-body">
@@ -91,9 +124,12 @@ const CheckoutItems = ({carts}) => {
           </div>
         </div>
         <div className='body__footer-item-btn'>
-          <button className='btn btn--primary'>Đặt hàng</button>
+          <button onClick={confirm} className='btn btn--primary'>Đặt hàng</button>
         </div>
       </div>
+      {
+        notifi && <NotifiModal text='Đặt hàng thành công' type='successful' />
+      }
     </div>
   );
 };

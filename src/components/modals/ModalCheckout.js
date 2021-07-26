@@ -1,8 +1,10 @@
 import axios from 'axios';
-import React, { useState,useEffect,useCallback} from 'react';
+import React, { useState,useEffect} from 'react';
 import {TiDelete} from 'react-icons/ti'
 import {FaSortDown, FaSortUp} from 'react-icons/fa'
 import LoadingModal from './LoadingModal';
+import {useDispatch, useSelector} from 'react-redux'
+import {UpdateUser} from '../../actions/ActionWithProduct'
 
 
 const api = 'https://thongtindoanhnghiep.co/api'
@@ -26,18 +28,33 @@ const ModalCheckout = ({ setShowModal }) => {
   const [loading, setLoading] = useState(false)
   const [errorMiss, setErrorMiss] = useState(false)
 
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.lo.users);
+
   const handleSubmit = (e) =>{
     e.preventDefault()
     if(addValue && errorMiss === false){
-      // setState({...state, address:addValue})
-      console.log(state)
+      const userCurrent = JSON.parse(localStorage.getItem('login'))
+      let infoUser = user.find(x => x.id === userCurrent.id)
+      const Info = {
+        id:infoUser.info[0].id,
+        name: state.name,
+        phone:state.phone.slice(1,state.phone.length),
+        address: addValue,
+        address_detail: state.address_detail
+      }
+      infoUser = {
+        ...infoUser,
+        info:[Info]
+      }
+      dispatch(UpdateUser(userCurrent.id,infoUser))
       reset()
+      setShowModal(false)
     }else{
       console.log('khong the submit')
       setErrorMiss(true)
     }
   }
-
 
   const onFocus = () => {
     address.ward === '' ? setFocused(true) : setFocused(false)
@@ -45,7 +62,7 @@ const ModalCheckout = ({ setShowModal }) => {
 
   const reset = () =>{
     setState({name: '',phone: '',address: '',address_detail: ''})
-    setAddress({province:'',district:'',ward:''})
+    handleDelete()
   }
 
   useEffect(() => {
@@ -126,11 +143,6 @@ const ModalCheckout = ({ setShowModal }) => {
       }
     }
   }
-
-  const callToSave = useCallback((value) =>{
-    console.log(value)
-    setState({...state, address:value})
-  },[state]); 
   
 
   useEffect(() => {
@@ -141,10 +153,7 @@ const ModalCheckout = ({ setShowModal }) => {
         newArr.push(arr[i])
       }
     }
-    let abc = newArr.join(',')
-    setAddValue(abc)
-    // callToSave(abc)
-    setState({...state, address:abc})
+    setAddValue(newArr.join(','))
   }, [address]);
 
   return (

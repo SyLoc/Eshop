@@ -8,7 +8,7 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.lo.isLogin);
   const infoCustomer = useSelector(state => state.lo.infoCustomer);
-
+ 
   const handleSignIn = (value) =>{
     dispatch({type: OPEN_MODAL, payload: value})
   }

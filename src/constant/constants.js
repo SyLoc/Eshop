@@ -22,6 +22,8 @@ export const CLOSE_MODAL = 'CLOSE_MODAL'
 
 export const ADD_CUSTOMER = 'ADD_CUSTOMER'
 
+export const UPDATE_USER = 'UPDATE_USER'
+
 export const LOGIN = 'LOGIN'
 
 export const LOGOUT = 'LOGOUT'
