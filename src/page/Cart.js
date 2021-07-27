@@ -162,14 +162,7 @@ const Cart = () => {
   }
 
   const order = () =>{
-    const arr = []
-    for(let i=0; i < carts.length; i++){
-      for(let z=0; z < selectedProducts.length; z++){
-        if(carts[i].id === selectedProducts[z]){
-          arr.unshift(carts[i])
-        }
-      }
-    }
+    const arr = carts.filter(x => selectedProducts.includes(x.id))
     localStorage.setItem('order', JSON.stringify(arr))
   }
 

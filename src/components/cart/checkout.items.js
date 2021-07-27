@@ -1,11 +1,15 @@
 import React, { useState, useEffect} from 'react';
-import {addOrder} from '../../actions/ActionWithProduct'
-import {useDispatch} from 'react-redux'
+import {addOrder,updateCart} from '../../actions/ActionWithProduct'
+import {useDispatch, useSelector} from 'react-redux'
 import NotifiModal from '../modals/NotifiModal'
 
 const CheckoutItems = ({carts, infoCustomer}) => {
   const dispatch = useDispatch();
+  const cartInfo = useSelector(state => state.sale.cartInfo);
+
   const [notifi, setNotifi] = useState(false)
+  const [check, setCheck] = useState(false)
+  
 
   const covert = (value) => {
     const arr = (value + '000').split('')
@@ -41,25 +45,69 @@ const CheckoutItems = ({carts, infoCustomer}) => {
   shippingPrice = covert(shippingPrice)
   totalPrice = covert(totalPrice)
 
-  const confirm = () =>{
-    const products = JSON.parse(localStorage.getItem('order'))
-    const money = {
-      itemsPrice,
-      shippingPrice,
-      totalPrice
-    }
+  useEffect(() => {
+    if(infoCustomer.address !== '') setCheck(true)
+  }, [infoCustomer]);
 
-    const value = {
-      infoUser:infoCustomer,
-      products:products, 
-      total:money
-    }
-
-    dispatch(addOrder(value,(res) =>{
-      if(res){
-        setNotifi(true)
+  const convertArr = (array) => {
+    let arr = []
+    array.forEach(x => {
+      const { id, amount, type } = x
+      const newItem = {
+        productId: id,
+        amount: amount,
+        type: type
       }
-    }))
+      arr.unshift(newItem)
+    })
+    return arr
+  }
+
+  const confirm = () =>{
+    if(check){
+      let products = JSON.parse(localStorage.getItem('order'))
+      products = convertArr(products)
+
+      const money = {
+        itemsPrice,
+        shippingPrice,
+        totalPrice
+      }
+
+      const value = {
+        infoUser:infoCustomer,
+        products:products, 
+        total:money
+      }
+
+      dispatch(addOrder(value,(res) =>{
+        if(res){
+          setNotifi(true)
+          localStorage.removeItem('order')
+          deleteItemInCart(products)
+        }
+      }))
+
+    }else{
+      setNotifi(true)
+    }
+  }
+
+
+  const deleteItemInCart = (products) => {
+    const newCart = []
+    for(let i = 0; i<cartInfo.products.length; i++){
+      for(let z=0; z<products.length; z++){
+        if(cartInfo.products[i].productId !== products[z].productId){
+          newCart.push(cartInfo.products[i])
+        }
+      }
+    }
+    const listOfProducts = {
+      idUser: cartInfo.idUser,
+      products: newCart
+    }
+    dispatch(updateCart(cartInfo.id, listOfProducts, (data) => {}))
   }
 
   useEffect(() => {
@@ -124,11 +172,14 @@ const CheckoutItems = ({carts, infoCustomer}) => {
           </div>
         </div>
         <div className='body__footer-item-btn'>
-          <button onClick={confirm} className='btn btn--primary'>Đặt hàng</button>
+          <button onClick={confirm} className={`btn btn--primary ${check === false && 'btn--disabled'}`}>Đặt hàng</button>
         </div>
       </div>
       {
-        notifi && <NotifiModal text='Đặt hàng thành công' type='successful' />
+        check && notifi && <NotifiModal text='Đặt hàng thành công' type='successful' />
+      }
+      {
+        check === false && notifi && <NotifiModal text='Chưa có địa chỉ giao hàng' type='warning' />
       }
     </div>
   );

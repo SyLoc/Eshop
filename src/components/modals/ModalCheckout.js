@@ -37,7 +37,7 @@ const ModalCheckout = ({ setShowModal }) => {
       const userCurrent = JSON.parse(localStorage.getItem('login'))
       let infoUser = user.find(x => x.id === userCurrent.id)
       const Info = {
-        id:infoUser.info[0].id,
+        id:userCurrent.id,
         name: state.name,
         phone:state.phone.slice(1,state.phone.length),
         address: addValue,
