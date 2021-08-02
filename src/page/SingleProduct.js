@@ -127,7 +127,7 @@ const SingleProduct = () => {
 
   return (
     <article className='grid'>
-      <div className="grid__row">
+      <div className="grid__row container__content">
         <div className='singleProduct'>
           <div className="singleProduct__container-img">
             <div className='singleProduct__container-img-header'>

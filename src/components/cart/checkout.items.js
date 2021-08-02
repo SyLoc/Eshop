@@ -49,25 +49,10 @@ const CheckoutItems = ({carts, infoCustomer}) => {
     if(infoCustomer.address !== '') setCheck(true)
   }, [infoCustomer]);
 
-  const convertArr = (array) => {
-    let arr = []
-    array.forEach(x => {
-      const { id, amount, type } = x
-      const newItem = {
-        productId: id,
-        amount: amount,
-        type: type
-      }
-      arr.unshift(newItem)
-    })
-    return arr
-  }
 
   const confirm = () =>{
     if(check){
       let products = JSON.parse(localStorage.getItem('order'))
-      products = convertArr(products)
-
       const money = {
         itemsPrice,
         shippingPrice,
@@ -93,21 +78,40 @@ const CheckoutItems = ({carts, infoCustomer}) => {
     }
   }
 
+  const convertArr = (array) => {
+    let arr = []
+    array.forEach(x => {
+      const { id, amount, type } = x
+      const newItem = {
+        productId: id,
+        amount: amount,
+        type: type
+      }
+      arr.unshift(newItem)
+    })
+    return arr
+  }
 
   const deleteItemInCart = (products) => {
-    const newCart = []
-    for(let i = 0; i<cartInfo.products.length; i++){
-      for(let z=0; z<products.length; z++){
-        if(cartInfo.products[i].productId !== products[z].productId){
-          newCart.push(cartInfo.products[i])
+    if(products.length === cartInfo.products.length){
+      console.log('xoa het')
+    }else{
+      const newCart = []
+      const arr = convertArr(products)
+      for(let i = 0; i<cartInfo.products.length; i++){
+        for(let z=0; z<arr.length; z++){
+          if(cartInfo.products[i].productId !== arr[z].productId){
+            newCart.push(cartInfo.products[i])
+          }
         }
       }
+      const listOfProducts = {
+        idUser: cartInfo.idUser,
+        products: newCart
+      }
+      dispatch(updateCart(cartInfo.id, listOfProducts, (data) => {}))
     }
-    const listOfProducts = {
-      idUser: cartInfo.idUser,
-      products: newCart
-    }
-    dispatch(updateCart(cartInfo.id, listOfProducts, (data) => {}))
+    
   }
 
   useEffect(() => {

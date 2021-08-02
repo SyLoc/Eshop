@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect} from 'react';
+import { Link,useHistory } from 'react-router-dom'
 import '../css/cart.css'
 import Footer from '../components/footer/Footer';
 import CartItems from '../components/cart/cart.items';
@@ -12,8 +12,9 @@ import HeaderSecond from '../components/header/HeaderSecond';
 
 const Cart = () => {
   const cart = useSelector(state => state.sale.cart);
-  const cartInfo = useSelector(state => state.sale.cartInfo);
+  const cartInfo = useSelector(state => state.sale.cartInfo); 
   const dispatch = useDispatch();
+  const history = useHistory()
 
   const [carts, setCarts] = useState([])
   const [selectedProducts, setSelectedProducts] = useState([])
@@ -106,16 +107,26 @@ const Cart = () => {
 
   const deleteItem = (id) => {
     const exist = carts.find(item => item.id === id)
-    if (exist) {
-      let newCart = carts.filter(x => x.id !== id)
-      newCart = convertArr(newCart)
-      const listOfProducts = {
+    if(exist && carts.length === 1){
+      const cartItem = {
         idUser: cartInfo.idUser,
-        products: [
-          ...newCart 
-        ]
+        products: []
       }
-      dispatch(updateCart(cartInfo.id, listOfProducts, (data) => {}))
+      dispatch(updateCart(cartInfo.id, cartItem, (data) => {
+        if(data) history.push('/')
+      }))
+    }else{
+      if (exist) {
+        let newCart = carts.filter(x => x.id !== id)
+        newCart = convertArr(newCart)
+        const listOfProducts = {
+          idUser: cartInfo.idUser,
+          products: [
+            ...newCart 
+          ]
+        }
+        dispatch(updateCart(cartInfo.id, listOfProducts, (data) => {}))
+      }
     }
   }
 

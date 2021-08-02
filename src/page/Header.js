@@ -6,7 +6,7 @@ import HeaderSearch from '../components/header/HeaderSearch';
 
 import {SET_CART} from '../constant/constants'
 
-import {getAllCart} from '../actions/ActionWithProduct'
+import {getAllCart,getOrder} from '../actions/ActionWithProduct'
 import {useDispatch, useSelector} from 'react-redux'
 
 const Header = () => {
@@ -16,7 +16,6 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const listCart = useSelector(state => state.sale.cartInfo.products);
-  // const cart =  useSelector(state => state.sale.cart);
 
   useEffect(() => { 
     if(listCart.length !== 0){
@@ -35,12 +34,16 @@ const Header = () => {
       }
       dispatch({type: SET_CART, payload: newPro})
       setCart(newPro)
+    }else{
+      dispatch({type: SET_CART, payload: []})
+      setCart([])
     }
   }, [listCart, productArr,dispatch]);
 
   useEffect(() => {
     if(isLogin){
       dispatch(getAllCart())
+      dispatch(getOrder())
     }
   }, [isLogin, dispatch]);
 

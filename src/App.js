@@ -12,6 +12,9 @@ import {
 } from 'react-router-dom'
 // component
 import Header from './page/Header';
+import Account from './components/user/Account';
+import Purchase from './components/user/Purchase';
+import Notifications from './components/user/Notifications';
 
 // page
 import Home from './page/Home'
@@ -47,6 +50,15 @@ function App() {
           <Route path='/checkout' render={() =>{
             return login ? <Checkout/> : <Redirect to='/'/>
           }}>
+          </Route>
+          <Route path='/purchase'>
+              <Purchase/>
+          </Route>
+          <Route path='/account'>
+              <Account/>
+          </Route>
+          <Route path='/notifications'>
+              <Notifications/>
           </Route>
           <Route path='/about'>
               <About/>

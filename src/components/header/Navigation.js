@@ -1,6 +1,7 @@
 import React from 'react';
 import {FaFacebook, FaInstagram, FaRegBell, FaRegQuestionCircle } from 'react-icons/fa'
 import { useDispatch,useSelector} from 'react-redux';
+import { Link } from 'react-router-dom'
 
 import {OPEN_MODAL, LOGOUT} from '../../constant/constants'
 
@@ -132,13 +133,13 @@ const Navigation = () => {
   
               <ul className="header__navbar-user-menu">
                 <li className="header__navbar-user-item">
-                  <a href="/error">Tài khoản của tôi</a>
+                  <Link to="/user/account">Tài khoản của tôi</Link>
                 </li>
+                {/* <li className="header__navbar-user-item">
+                  <Link href="/error">Địa chỉ của tôi</Link>
+                </li> */}
                 <li className="header__navbar-user-item">
-                  <a href="/error">Địa chỉ của tôi</a>
-                </li>
-                <li className="header__navbar-user-item">
-                  <a href="/error">Đơn mua</a>
+                  <Link to="/purchase">Đơn mua</Link>
                 </li>
                 <li className="header__navbar-user-item">
                   <button onClick={logOut}>Đăng xuất</button>

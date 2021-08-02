@@ -10,8 +10,10 @@ import {
   UPDATE_CART,
   DELETE_CART,
   GET_ALL_CART,
-  ADD_ORDER
+  ADD_ORDER,
+  GET_ORDER
 } from '../constant/constants'
+
 
 export const getProductList = () => async (dispatch) => {
   try {
@@ -45,7 +47,7 @@ export const addUser = (user) => async (dispatch) =>{
 export const UpdateUser = (id,value) => async (dispatch) =>{
   try {
     const res = await axios.put(`/users/${id}`, value)
-    dispatch({type: UPDATE_USER, payload:res})
+    dispatch({type: UPDATE_USER, payload:res}) 
   } catch (error) {
     console.log(error)
   }
@@ -107,6 +109,15 @@ export const addOrder = (value,callBack) => async (dispatch) =>{
     const res = await axios.post('/order', value)
     dispatch({type: ADD_ORDER, payload:res})
     return callBack(res)
+  } catch (error) {
+    console.log("error@: ", error)
+  }
+}
+
+export const getOrder = () => async (dispatch) =>{
+  try {
+    const res = await axios.get('/order')
+    dispatch({type: GET_ORDER, payload:res})
   } catch (error) {
     console.log("error@: ", error)
   }

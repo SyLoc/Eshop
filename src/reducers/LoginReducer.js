@@ -84,7 +84,7 @@ const LoginReducer = (state = initialState, action) => {
         modalContent:''
       }
     case UPDATE_USER:
-      return {
+      return { 
         ...state,
         userCurrent:action.payload.data
       }
