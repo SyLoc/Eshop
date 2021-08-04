@@ -47,12 +47,14 @@ const FormSocials = ({closeModal, setMessage}) => {
         }
       })
       if(login === false){
-        const id_random = new Date().getTime().toString()
+        let id_random = new Date().getTime().toString()
+        id_random = id_random.substr(8)
         const user = {
-          id: id_random.substr(8),
+          id: id_random,
           email: data.email,
-          password: '',info:[{ 
-            id:id_random.substr(10),
+          password: '',
+          info:[{ 
+            id: id_random,
             name: data.name,
             phone: '',
             address: '',
