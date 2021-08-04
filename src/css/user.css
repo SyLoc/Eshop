@@ -74,6 +74,7 @@
 .purchase-header_item{
   text-align: center;
   padding: 15px 50px;
+  cursor: pointer;
 }
 
 .purchase-header__text{
@@ -83,7 +84,6 @@
   line-height: 20px;
   text-transform: capitalize;
   position: relative;
-  cursor: pointer;
 }
 
 .purchase-header_item--active .purchase-header__text{
@@ -196,4 +196,64 @@
 
 .purchase-item__extension-price span{
   color: var(--primary-color);
+}
+
+/* no product */
+
+.purchase-item-noProduct{
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.purchase-item-noProduct h1{
+  margin-top: 10px;
+  color: var(--text-color);
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 2.2rem;
+}
+
+/* =============== modal ================== */
+.modal-purchase{
+  width: 500px;
+  min-height: 300px;
+  padding: 30px;
+  background-color: var(--white-color);
+  border-radius: .25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-purchase__title{
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 2.2rem;
+  color: var(--text-color);
+  text-transform: capitalize;
+}
+
+.modal-purchase__content{
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.modal-purchase__item{
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.modal-purchase__item span{
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2rem;
+  color: var(--text-color);
+  margin-left: 10px;
 }

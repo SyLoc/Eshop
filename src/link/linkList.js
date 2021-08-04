@@ -72,3 +72,22 @@ export const category = [
     url: '/dungcutrangdiem'
   }
 ]
+
+export const btnStatus = [
+  {
+    id: 0,
+    content:'Chờ xác nhận'
+  },
+  {
+    id: 1,
+    content:'Đang giao'
+  },
+  {
+    id: 2,
+    content:'Đã giao'
+  },
+  {
+    id: 3,
+    content:'Đã hủy'
+  }
+]

@@ -11,7 +11,8 @@ import {
   DELETE_CART,
   GET_ALL_CART,
   ADD_ORDER,
-  GET_ORDER
+  GET_ORDER,
+  UPDATE_ORDER
 } from '../constant/constants'
 
 
@@ -123,5 +124,15 @@ export const getOrder = () => async (dispatch) =>{
   }
 }
 
+
+export const updateOrder = (id,value,callBack) => async (dispatch) =>{
+  try {
+    const res = await axios.put(`/order/${id}`, value)
+    dispatch({type: UPDATE_ORDER, payload:res})
+    return callBack(res)
+  } catch (error) {
+    console.log("error@: ", error)
+  }
+}
 
 // ========================

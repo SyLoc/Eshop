@@ -5,7 +5,8 @@ import {
   UPDATE_CART,
   SET_CART,
   ADD_ORDER,
-  GET_ORDER
+  GET_ORDER,
+  UPDATE_ORDER
 }from '../constant/constants'
 
 const initialState = {
@@ -64,6 +65,13 @@ const SaleReducer = (state = initialState, action) => {
       return {
         ...state,
         order:newOrder
+      }
+    case UPDATE_ORDER:
+      const abc = state.order.filter(item => item.id !== action.payload.data.id)
+      const updateOrder = [...abc, action.payload.data]
+      return {
+        ...state,
+        order: updateOrder
       }
     default:
       return state;

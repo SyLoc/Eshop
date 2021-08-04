@@ -53,6 +53,20 @@ const CheckoutItems = ({carts, infoCustomer}) => {
   const confirm = () =>{
     if(check){
       let products = JSON.parse(localStorage.getItem('order'))
+
+      const newProducts = products.map(product => {
+        return {
+          id: product.id, 
+          name: product.name, 
+          image: product.image, 
+          priceOld: product.priceOld, 
+          priceCurrent: product.priceCurrent, 
+          amount: product.amount, 
+          type: product.type
+        }
+      })
+
+
       const money = {
         itemsPrice,
         shippingPrice,
@@ -61,8 +75,9 @@ const CheckoutItems = ({carts, infoCustomer}) => {
 
       const value = {
         infoUser:infoCustomer,
-        products:products, 
-        total:money
+        products:newProducts, 
+        total:money,
+        status: 'unconfirmed'
       }
 
       dispatch(addOrder(value,(res) =>{
@@ -94,7 +109,11 @@ const CheckoutItems = ({carts, infoCustomer}) => {
 
   const deleteItemInCart = (products) => {
     if(products.length === cartInfo.products.length){
-      console.log('xoa het')
+      const listOfProducts = {
+        idUser: cartInfo.idUser,
+        products: []
+      }
+      dispatch(updateCart(cartInfo.id, listOfProducts, (data) => {}))
     }else{
       const newCart = []
       const arr = convertArr(products)

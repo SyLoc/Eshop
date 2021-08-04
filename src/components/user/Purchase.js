@@ -2,21 +2,57 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import '../../css/user.css'
 import avata from '../../assets/img/avata.jpg'
-import { BiNotepad } from 'react-icons/bi'
 import { BsPerson } from 'react-icons/bs'
+import { BiNotepad } from 'react-icons/bi'
 import { MdNotificationsNone } from 'react-icons/md'
 
 import { useSelector } from 'react-redux'
+import PurchaseItem from './userChildren/purchase.item';
+
+import { btnStatus } from '../../link/linkList'
 
 const Purchase = () => {
   const orderAll = useSelector(state => state.sale.order);
-  const [order, setOrder] = useState([])
+  const [order, setOrder] = useState([[]])
+  const [infoCus, setInfoCus] = useState({})
+  const [value, setValue] = useState(0)
+
 
   useEffect(() => {
     const infoCus = JSON.parse(localStorage.getItem('login'))
+    setInfoCus(infoCus)
     const arr = orderAll.filter(x => x.infoUser.id === infoCus.id)
-    setOrder(arr)
+
+    const value = {
+      unconfirmed:[],
+      delivering:[],
+      delivered:[],
+      canceled:[]
+    }
+
+    arr.forEach(item => {
+      switch(item.status){
+        case 'unconfirmed': 
+          value.unconfirmed.push(item)
+          break;
+        case 'delivering': 
+          value.delivering.push(item)
+          break;
+        case 'delivered': 
+          value.delivered.push(item)
+          break;
+        case 'canceled': 
+          value.canceled.push(item)
+          break;
+        default:
+          return item
+      }
+    })
+
+    const array = [value.unconfirmed,value.delivering,value.delivered,value.canceled]
+    setOrder(array)
   }, [orderAll]);
+
 
   return (
     <main className="container grid">
@@ -24,12 +60,12 @@ const Purchase = () => {
         <div className="grid__column-2">
           <div className='purchase__sidebar'>
             <div className="purchase__sidebar-profile">
-              <img src={avata} className="purchase__sidebar-img" alt="avata" />
-              <div className="purchase__sidebar-name">phan hai</div>
-              {/* <div className="purchase__sidebar-info">
-                <div className="purchase__sidebar-info__name">phan hai</div>
-                <div className="purchase__sidebar-info__name">phan hai</div>
-              </div> */}
+              <img 
+                src={infoCus.img !== '' ? infoCus.img : avata} 
+                className="purchase__sidebar-img" 
+                alt="avata" />
+              <div className="purchase__sidebar-name">{infoCus.name}</div>
+              
             </div>
             <ul className='purchase__sidebar-list'>
               <li className='purchase__sidebar-item'>
@@ -49,59 +85,21 @@ const Purchase = () => {
         </div>
         <div className="grid__column-10">
           <div className='purchase__content'>
+            {/* purchase-header_item--active */}
             <ul className="purchase-header_list">
-              <li className="purchase-header_item purchase-header_item--active">
-                <div className="purchase-header__text" >Chờ xác nhận</div>
-              </li>
-              <li className="purchase-header_item">
-                <div className="purchase-header__text">Đang giao</div>
-              </li>
-              <li className="purchase-header_item">
-                <div className="purchase-header__text" >Đã giao</div>
-              </li>
-              <li className="purchase-header_item">
-                <div className="purchase-header__text" >Đã hủy</div>
-              </li>
-            </ul>
-
-            <div className="purchase-main">
               {
-                order.map((item, index) => {
-                  return (
-                    <div key={index} className="purchase-item-wrap">
-                      {
-                        item.products.map(x => {
-                          const {id,name,image,type,amount,priceOld, priceCurrent} = x
-                          return (
-                            <div key={id} className="purchase-item">
-                              <div className="purchase-item__left">
-                                <div className="purchase-item__image">
-                                  <div
-                                    style={{ backgroundImage: `url(${image})` }}
-                                    className="purchase-item__img" alt="" />
-                                </div>
-                                <Link to='/abc' className="purchase-item__info">
-                                  <div className="purchase-item__info-name">{name}</div>
-                                  <div className="purchase-item__info-type">loại: {type}</div>
-                                  <div className="purchase-item__info-quantity">x{amount}</div>
-                                </Link>
-                              </div>
-                              <div className="purchase-item__right">
-                                <div className='purchase-item__right-oldPrice'>₫{priceOld}</div>
-                                <div className='purchase-item__right-currentPrice'>₫{priceCurrent}</div>
-                              </div>
-                            </div>
-                          )
-                        })
-                      }
-                      <div className='purchase-item__extension'>
-                        <div className='purchase-item__extension-price'>Tổng số tiền: <span>₫{item.total.totalPrice}</span></div>
-                        <button className='btn btn--primary'>HỦY ĐƠN HÀNG</button>
-                      </div>
-                    </div>
+                btnStatus.map(item =>{
+                  return(
+                    <li key={item.id} onClick={e => setValue(item.id)} className={`purchase-header_item ${value === item.id && 'purchase-header_item--active'}`}>
+                      <div className="purchase-header__text">{item.content}</div>
+                    </li>
                   )
                 })
               }
+            </ul>
+
+            <div className="purchase-main">
+              <PurchaseItem prop={order[value]}/>
             </div>
           </div>
         </div>
