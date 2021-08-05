@@ -51,8 +51,9 @@ function App() {
             return login ? <Checkout/> : <Redirect to='/'/>
           }}>
           </Route>
-          <Route path='/purchase'>
-              <Purchase/>
+          <Route path='/purchase' render={() =>{
+            return login ? <Purchase/> : <Redirect to='/'/>
+          }}>
           </Route>
           <Route path='/account'>
               <Account/>

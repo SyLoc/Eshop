@@ -37,7 +37,7 @@ const FormSocials = ({closeModal, setMessage}) => {
         if(item.googleId === data.googleId){
           login = true
           const user = {
-            id: item.id,
+            id: item.idUser,
             name: data.name,
             email: data.email,
             img: data.imageUrl
@@ -50,16 +50,14 @@ const FormSocials = ({closeModal, setMessage}) => {
         let id_random = new Date().getTime().toString()
         id_random = id_random.substr(8)
         const user = {
-          id: id_random,
+          idUser: id_random,
           email: data.email,
           password: '',
-          info:[{ 
-            id: id_random,
-            name: data.name,
-            phone: '',
-            address: '',
-            address_detail:''
-          }],
+          name: data.name,
+          name_2: '',
+          phone: '',
+          address: '',
+          address_detail:'',
           isAdmin: false,
           img: data.imageUrl,
           googleId: data.googleId,

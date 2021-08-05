@@ -40,8 +40,8 @@ const LoginReducer = (state = initialState, action) => {
       }
     case ADD_CUSTOMER:
       const infoUser = {
-        id:action.payload.data.id, 
-        name:action.payload.data.info[0].name,
+        id:action.payload.data.idUser, 
+        name:action.payload.data.name,
         email:action.payload.data.email,
         img:action.payload.data.img
       }
@@ -51,13 +51,13 @@ const LoginReducer = (state = initialState, action) => {
         ...state,
         infoCustomer: infoUser,
         isLogin:true,
-        users: newCustomer
+        users: newCustomer,
+        userCurrent:action.payload.data
       }
     case LOGIN:
-      const nameUser = action.payload.info ? action.payload.info[0].name : action.payload.name
       const newInfo = {
         id:action.payload.id,
-        name: nameUser,
+        name: action.payload.name, 
         email: action.payload.email,
         img: action.payload.img
       }

@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import {addOrder,updateCart} from '../../actions/ActionWithProduct'
 import {useDispatch, useSelector} from 'react-redux'
 import NotifiModal from '../modals/NotifiModal'
+import { useHistory } from 'react-router-dom';
 
 const CheckoutItems = ({carts, infoCustomer}) => {
   const dispatch = useDispatch();
@@ -9,6 +10,7 @@ const CheckoutItems = ({carts, infoCustomer}) => {
 
   const [notifi, setNotifi] = useState(false)
   const [check, setCheck] = useState(false)
+  const history = useHistory()
   
 
   const covert = (value) => {
@@ -46,7 +48,7 @@ const CheckoutItems = ({carts, infoCustomer}) => {
   totalPrice = covert(totalPrice)
 
   useEffect(() => {
-    if(infoCustomer.address !== '') setCheck(true)
+    infoCustomer.address !== '' ? setCheck(true) : setCheck(false)
   }, [infoCustomer]);
 
 
@@ -85,27 +87,18 @@ const CheckoutItems = ({carts, infoCustomer}) => {
           setNotifi(true)
           localStorage.removeItem('order')
           deleteItemInCart(products)
+          setTimeout(() =>{
+            history.push('/')
+          }, 1500)
         }
       }))
+
 
     }else{
       setNotifi(true)
     }
   }
 
-  const convertArr = (array) => {
-    let arr = []
-    array.forEach(x => {
-      const { id, amount, type } = x
-      const newItem = {
-        productId: id,
-        amount: amount,
-        type: type
-      }
-      arr.unshift(newItem)
-    })
-    return arr
-  }
 
   const deleteItemInCart = (products) => {
     if(products.length === cartInfo.products.length){
@@ -115,22 +108,16 @@ const CheckoutItems = ({carts, infoCustomer}) => {
       }
       dispatch(updateCart(cartInfo.id, listOfProducts, (data) => {}))
     }else{
-      const newCart = []
-      const arr = convertArr(products)
-      for(let i = 0; i<cartInfo.products.length; i++){
-        for(let z=0; z<arr.length; z++){
-          if(cartInfo.products[i].productId !== arr[z].productId){
-            newCart.push(cartInfo.products[i])
-          }
-        }
-      }
+      const arr = products.map(x => x.id)
+      const newCart = cartInfo.products.filter(x => arr.includes(x.productId) === false)
+
       const listOfProducts = {
         idUser: cartInfo.idUser,
         products: newCart
       }
+
       dispatch(updateCart(cartInfo.id, listOfProducts, (data) => {}))
     }
-    
   }
 
   useEffect(() => {

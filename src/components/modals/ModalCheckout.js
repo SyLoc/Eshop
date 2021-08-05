@@ -35,19 +35,20 @@ const ModalCheckout = ({ setShowModal }) => {
     e.preventDefault()
     if(addValue && errorMiss === false){
       const userCurrent = JSON.parse(localStorage.getItem('login'))
-      let infoUser = user.find(x => x.id === userCurrent.id)
+      let infoUser = user.find(x => x.idUser === userCurrent.id)
+
       const Info = {
-        id:userCurrent.id,
-        name: state.name,
+        name_2:state.name,
         phone:state.phone.slice(1,state.phone.length),
         address: addValue,
         address_detail: state.address_detail
       }
       infoUser = {
         ...infoUser,
-        info:[Info]
+        ...Info
       }
-      dispatch(UpdateUser(userCurrent.id,infoUser))
+
+      dispatch(UpdateUser(infoUser.id,infoUser))
       reset()
       setShowModal(false)
     }else{

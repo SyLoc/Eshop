@@ -11,13 +11,14 @@ import HeaderSecond from '../components/header/HeaderSecond';
 const Checkout = () => {
   const [showModal, setShowModal] = useState(false)
   const [carts, setCarts] = useState([])
-  const [infoCustomer, setInfoCustomer] = useState({});
+  const [infoCustomer, setInfoCustomer] = useState({address:''});
   const userCurrent = useSelector(state => state.lo.userCurrent);
   const users = useSelector(state => state.lo.users);
 
   useEffect(() => {
-    const infoUser = userCurrent.info === undefined ? users.find(user => user.id === userCurrent.id) : userCurrent
-    setInfoCustomer(infoUser.info[0])
+
+    const infoUser = userCurrent.address === undefined ? users.find(user => user.idUser === userCurrent.id) : userCurrent
+    setInfoCustomer(infoUser)
   }, [userCurrent,users]);
 
 
@@ -37,14 +38,15 @@ const Checkout = () => {
               <i><MdPlace /></i>
               <span>Địa chỉ nhận hàng</span>
             </div>
-            <div className={`checkout__main-header__content-body ${infoCustomer.phone !== '' && 'header__content-body--active'} `}>
+
+            <div className={`checkout__main-header__content-body ${infoCustomer.address !== '' && 'header__content-body--active'}`}>
               {/* header__content-body--active */}
               <div className='checkout__main-header__content-body__no-address'>
                 <p><i><HiOutlineLightBulb/></i> Chưa có địa chỉ nhận hàng, xin hãy nhập thông tin để chúng tôi có thể giao hàng</p>
               </div>
 
               <div className='checkout__main-header__content-body__address'>
-                <h3>{infoCustomer.name} (+84) {infoCustomer.phone}</h3>
+                <h3>{infoCustomer.name_2} (+84) {infoCustomer.phone}</h3>
                 <span>{infoCustomer.address_detail}, {infoCustomer.address}</span>
               </div>
 

@@ -16,12 +16,14 @@ const Purchase = () => {
   const [order, setOrder] = useState([[]])
   const [infoCus, setInfoCus] = useState({})
   const [value, setValue] = useState(0)
+  const [noti, setNoti] = useState(false)
 
 
   useEffect(() => {
     const infoCus = JSON.parse(localStorage.getItem('login'))
+    console.log(infoCus)
     setInfoCus(infoCus)
-    const arr = orderAll.filter(x => x.infoUser.id === infoCus.id)
+    const arr = orderAll.filter(x => x.infoUser.idUser === infoCus.id)
 
     const value = {
       unconfirmed:[],
@@ -51,6 +53,7 @@ const Purchase = () => {
 
     const array = [value.unconfirmed,value.delivering,value.delivered,value.canceled]
     setOrder(array)
+    setNoti(true)
   }, [orderAll]);
 
 
@@ -88,10 +91,14 @@ const Purchase = () => {
             {/* purchase-header_item--active */}
             <ul className="purchase-header_list">
               {
-                btnStatus.map(item =>{
+                btnStatus.map((item) =>{
                   return(
                     <li key={item.id} onClick={e => setValue(item.id)} className={`purchase-header_item ${value === item.id && 'purchase-header_item--active'}`}>
                       <div className="purchase-header__text">{item.content}</div>
+                      {
+
+                        noti && order[item.id].length !== 0 && <span className="purchase-header__num">{order[item.id].length}</span>
+                      }
                     </li>
                   )
                 })
