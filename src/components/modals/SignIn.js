@@ -42,7 +42,13 @@ const SignIn = ({closeModal, showSignIn, handleClick}) => {
       let loginFail = true
       users.forEach(item =>{
         if(item.email === valueSignIn.email && item.password === valueSignIn.password){
-          dispatch({type: LOGIN, payload: item})
+          const user = {
+            id: item.idUser,
+            name: item.name,
+            email: item.email,
+            img: item.img
+          }
+          dispatch({type: LOGIN, payload: user}) 
           setMessage('Đăng nhập thành công')
           setValueSignIn({email:"", password:""})
           loginFail = false

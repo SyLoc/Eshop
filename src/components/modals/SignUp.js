@@ -42,11 +42,12 @@ const SignUp = ({closeModal, showSignUp, handleClick}) => {
           password: valueSignUp.password,
           name: '',
           name_2:'',
-          phone: '',
+          phone: '', 
           address: '',
           address_detail:'',
+          info_1:{},
           isAdmin: false,
-          img:'',
+          img:'https://png.pngtree.com/png-vector/20190618/ourlarge/pngtree-personalpersonalizationprofileuser-abstract-circle-backgro-png-image_1489146.jpg',
           googleId:'',
           facebookId:''
         }

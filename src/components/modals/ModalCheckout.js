@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState,useEffect} from 'react';
+import React, { useState,useEffect,useRef} from 'react';
 import {TiDelete} from 'react-icons/ti'
 import {FaSortDown, FaSortUp} from 'react-icons/fa'
 import LoadingModal from './LoadingModal';
@@ -29,7 +29,31 @@ const ModalCheckout = ({ setShowModal }) => {
   const [errorMiss, setErrorMiss] = useState(false)
 
   const dispatch = useDispatch();
+  const ref = useRef();
+  useOnClickOutside(ref, () => setFocused(false));
   const user = useSelector(state => state.lo.users);
+
+  // Hook
+  function useOnClickOutside(ref, handler) {
+    useEffect(
+      () => {
+        const listener = (event) => {
+          // Do nothing if clicking ref's element or descendent elements
+          if (!ref.current || ref.current.contains(event.target)) {
+            return;
+          }
+          handler(event);
+        };
+        document.addEventListener("mousedown", listener);
+        document.addEventListener("touchstart", listener);
+        return () => {
+          document.removeEventListener("mousedown", listener);
+          document.removeEventListener("touchstart", listener);
+        };
+      },
+      [ref, handler]
+    );
+  }
 
   const handleSubmit = (e) =>{
     e.preventDefault()
@@ -210,7 +234,7 @@ const ModalCheckout = ({ setShowModal }) => {
               </div>
 
 
-            <div className={`content__group-2_modal-wrap ${focused && 'modal-wrap--show'}`}>
+            <div ref={ref} className={`content__group-2_modal-wrap ${focused && 'modal-wrap--show'}`}>
               <div className='content__group-2_modal'>
                 <div className='content__group-2_modal-header'>
                   <div className={`content__group-2_modal-header-item ${numActive === 1 && 'modal-header-item--active'} `}>Tỉnh/thành phố</div>

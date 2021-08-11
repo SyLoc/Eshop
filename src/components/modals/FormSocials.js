@@ -38,9 +38,9 @@ const FormSocials = ({closeModal, setMessage}) => {
           login = true
           const user = {
             id: item.idUser,
-            name: data.name,
-            email: data.email,
-            img: data.imageUrl
+            name: item.name,
+            email: item.email,
+            img: item.img
           }
           dispatch({type: LOGIN, payload: user})
           closeModal()
@@ -58,6 +58,7 @@ const FormSocials = ({closeModal, setMessage}) => {
           phone: '',
           address: '',
           address_detail:'',
+          info_1:{},
           isAdmin: false,
           img: data.imageUrl,
           googleId: data.googleId,

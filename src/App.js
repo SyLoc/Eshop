@@ -6,15 +6,12 @@ import {
   Route,
   Redirect,
   // Link,
-  // Redirect,
   // useRouteMatch,
   // useParams
 } from 'react-router-dom'
 // component
 import Header from './page/Header';
-import Account from './components/user/Account';
-import Purchase from './components/user/Purchase';
-import Notifications from './components/user/Notifications';
+
 
 // page
 import Home from './page/Home'
@@ -25,6 +22,7 @@ import SingleProduct from './page/SingleProduct';
 import Modal from './components/modals/Modal';
 import Cart from './page/Cart';
 import Checkout from './page/Checkout';
+import User from './page/User';
 
 // ========================
 
@@ -51,15 +49,9 @@ function App() {
             return login ? <Checkout/> : <Redirect to='/'/>
           }}>
           </Route>
-          <Route path='/purchase' render={() =>{
-            return login ? <Purchase/> : <Redirect to='/'/>
+          <Route path='/user/:url' render={() =>{
+            return login ? <User/> : <Redirect to='/'/>
           }}>
-          </Route>
-          <Route path='/account'>
-              <Account/>
-          </Route>
-          <Route path='/notifications'>
-              <Notifications/>
           </Route>
           <Route path='/about'>
               <About/>

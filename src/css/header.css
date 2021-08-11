@@ -31,6 +31,11 @@
   position: relative;
 }
 
+.header__navbar-item--connected{
+  position: relative;
+  top: 3px;
+}
+
 .header__navbar-item,
 .header__navbar-item-link{
   display: block;

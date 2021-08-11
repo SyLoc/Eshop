@@ -11,7 +11,7 @@ const Navigation = () => {
   const infoCustomer = useSelector(state => state.lo.infoCustomer);
  
   const handleSignIn = (value) =>{
-    dispatch({type: OPEN_MODAL, payload: value})
+    dispatch({type: OPEN_MODAL, payload: value}) 
   }
 
   const handleSignUp = (value) =>{
@@ -39,7 +39,7 @@ const Navigation = () => {
             </div>
           </div>
         </li>
-        <li className="header__navbar-item">
+        <li className="header__navbar-item header__navbar-item--connected">
           <span className="header__navbar-item_span">Kết nối</span>
           <a href="/facebook" className="header__navbar-item-social">
             <i className="header__navbar-icon"><FaFacebook/></i>
@@ -51,10 +51,10 @@ const Navigation = () => {
       </ul>
       <ul className="header__navbar-list">
         <li className="header__navbar-item header__navbar-item--showNotify">
-          <a href="/error" className="header__navbar-item-link">
+          <Link to="/user/notifications" className="header__navbar-item-link">
             <i className="header__navbar-icon"><FaRegBell/></i>
             Thông báo
-          </a>
+          </Link>
           <div className="header__notify">
             <header className="header__notify-header">
               <h3>Thông báo mới nhận</h3>
@@ -120,11 +120,7 @@ const Navigation = () => {
           isLogin ? 
           (
             <li className="header__navbar-item header__navbar-user">
-              {
-                infoCustomer.img === "" ?
-                <img src="https://png.pngtree.com/png-vector/20190618/ourlarge/pngtree-personalpersonalizationprofileuser-abstract-circle-backgro-png-image_1489146.jpg" alt="avatar" className="header__navbar-user-avatar"/> :
-                <img src={infoCustomer.img} alt="avatar" className="header__navbar-user-avatar" />
-              }
+              <img src={infoCustomer.img} alt="avatar" className="header__navbar-user-avatar" />
               <span className="header__navbar-user-name">
                 {
                   infoCustomer.name === "" ? infoCustomer.email : infoCustomer.name
@@ -133,13 +129,13 @@ const Navigation = () => {
   
               <ul className="header__navbar-user-menu">
                 <li className="header__navbar-user-item">
-                  <Link to="/user/account">Tài khoản của tôi</Link>
+                  <Link to="/user/profile">Tài khoản của tôi</Link>
                 </li>
                 {/* <li className="header__navbar-user-item">
                   <Link href="/error">Địa chỉ của tôi</Link>
                 </li> */}
                 <li className="header__navbar-user-item">
-                  <Link to="/purchase">Đơn mua</Link>
+                  <Link to="/user/purchase">Đơn mua</Link>
                 </li>
                 <li className="header__navbar-user-item">
                   <button onClick={logOut}>Đăng xuất</button>

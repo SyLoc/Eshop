@@ -68,18 +68,22 @@ const CheckoutItems = ({carts, infoCustomer}) => {
         }
       })
 
-
       const money = {
         itemsPrice,
         shippingPrice,
         totalPrice
       }
 
+      const today = new Date()
+      const date = today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear()
+      const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+
       const value = {
         infoUser:infoCustomer,
         products:newProducts, 
         total:money,
-        status: 'unconfirmed'
+        status: 'unconfirmed',
+        orderDate: date + ' ' + time
       }
 
       dispatch(addOrder(value,(res) =>{

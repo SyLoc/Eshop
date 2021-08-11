@@ -1,7 +1,9 @@
 
-import {FaFacebook } from 'react-icons/fa'
+import {FaFacebook, FaTwitter } from 'react-icons/fa'
 import {GrInstagram } from 'react-icons/gr'
-import {FaTwitter } from 'react-icons/fa'
+import { BsPerson } from 'react-icons/bs'
+import { BiNotepad } from 'react-icons/bi'
+import { MdNotificationsNone } from 'react-icons/md'
 
 export const pageList = [
   { 
@@ -76,18 +78,44 @@ export const category = [
 export const btnStatus = [
   {
     id: 0,
-    content:'Chờ xác nhận'
+    content:'Chờ xác nhận',
+    status:'unconfirmed'
   },
   {
     id: 1,
-    content:'Đang giao'
+    content:'Đang giao',
+    status:'delivering'
   },
   {
     id: 2,
-    content:'Đã giao'
+    content:'Đã giao',
+    status:'delivered'
   },
   {
     id: 3,
-    content:'Đã hủy'
+    content:'Đã hủy',
+    status:'canceled'
   }
 ]
+
+export const sidebar = [
+  {
+    id:0,
+    icon: <BsPerson />,
+    text: 'tài khoản của tôi',
+    url: 'profile'
+  },
+  {
+    id:1,
+    icon: <BiNotepad />,
+    text: 'đơn mua',
+    url: 'purchase'
+  },
+  {
+    id:2,
+    icon: <MdNotificationsNone />,
+    text: 'thông báo',
+    url: 'notifications'
+  }
+]
+

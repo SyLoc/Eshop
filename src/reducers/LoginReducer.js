@@ -11,7 +11,6 @@ import {
 
 const initialState = {
   users:[],
-  userCurrent:{},
   openModal:false,
   modalContent:'',
   isLogin:false,
@@ -51,8 +50,7 @@ const LoginReducer = (state = initialState, action) => {
         ...state,
         infoCustomer: infoUser,
         isLogin:true,
-        users: newCustomer,
-        userCurrent:action.payload.data
+        users: newCustomer
       }
     case LOGIN:
       const newInfo = {
@@ -65,8 +63,7 @@ const LoginReducer = (state = initialState, action) => {
       return {
         ...state,
         infoCustomer:newInfo,
-        isLogin:true,
-        userCurrent:action.payload
+        isLogin:true
       }
     case LOGOUT:
       const resetInfoCustomer = {
@@ -84,9 +81,18 @@ const LoginReducer = (state = initialState, action) => {
         modalContent:''
       }
     case UPDATE_USER:
+      const usersAfterUpdated = state.users.filter(user => user.idUser !== action.payload.data.idUser)
+      const updatedUser = {
+        id:action.payload.data.idUser,
+        name: action.payload.data.name, 
+        email: action.payload.data.email,
+        img: action.payload.data.img
+      }
+      localStorage.setItem('login',JSON.stringify(updatedUser))
       return { 
         ...state,
-        userCurrent:action.payload.data
+        users: [...usersAfterUpdated,action.payload.data],
+        infoCustomer:updatedUser
       }
     default:
       return state;

@@ -12,14 +12,13 @@ const Checkout = () => {
   const [showModal, setShowModal] = useState(false)
   const [carts, setCarts] = useState([])
   const [infoCustomer, setInfoCustomer] = useState({address:''});
-  const userCurrent = useSelector(state => state.lo.userCurrent);
   const users = useSelector(state => state.lo.users);
 
   useEffect(() => {
-
-    const infoUser = userCurrent.address === undefined ? users.find(user => user.idUser === userCurrent.id) : userCurrent
-    setInfoCustomer(infoUser)
-  }, [userCurrent,users]);
+    const user = JSON.parse(localStorage.getItem('login'))
+    const userCurrent = users.find(x => x.idUser === user.id)
+    setInfoCustomer(userCurrent)
+  }, [users]);
 
 
   useEffect(() => {
