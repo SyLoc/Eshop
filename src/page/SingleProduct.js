@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { FaStar, FaCartPlus } from 'react-icons/fa'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
-import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri'
 import { BiCheck } from 'react-icons/bi'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../components/Loading';
+// import Slider from '../components/slider'
+import Comments from '../components/comments/Comments';
 
 import { getSingleProduct, addToCart, updateCart } from '../actions/ActionWithProduct'
 import NotifiModal from '../components/modals/NotifiModal'
+import ImageContainer from '../components/singleProduct/ImageContainer';
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -19,7 +21,6 @@ const SingleProduct = () => {
   const cartInfo = useSelector(state => state.sale.cartInfo);
 
   const [numberAmount, setNumberAmount] = useState(1)
-  // const [btnDissabled, setBtnDissabled] = useState(false)
 
   const {
     name,
@@ -37,6 +38,8 @@ const SingleProduct = () => {
   const [notifi, setNotifi] = useState(false)
   const [type, setType] = useState('')
 
+  const history = useHistory()
+
 
   const decrease = () => {
     if (numberAmount > 1) {
@@ -50,60 +53,80 @@ const SingleProduct = () => {
     }
   }
 
-  const checkType = (name) =>{
+  const checkType = (name) => {
     setType(name)
   }
 
+  const handleClickSaleNow = (id) =>{
+    if (isLogin) {
+      if (types.length === 0 || type !== '') {
+        const obj = {
+          ...product,
+          amount: numberAmount,
+          type:type
+        }
+        localStorage.setItem('order', JSON.stringify([obj]))
+        history.push(`/checkout/${id}`)
+      }else {
+        alert('Vui lòng chọn loại sản phẩm')
+      }
+    }else {
+      setNotifi(true)
+    }
+  } 
+  
+
   const handleClick = (id) => {
-    if( types.length === 0 || type !== ''){
-      if (isLogin) {
+    if (isLogin) {
+      if (types.length === 0 || type !== '') {
+
         let initialAmount = numberAmount;
         const userInfo = JSON.parse(localStorage.getItem('login')) || ''
-        if (cartInfo.id !== 0) {
-          const allProducts = [...cartInfo.products]
-          allProducts.map((item, index) => {
-            if (item.productId === id) {
-              initialAmount = item.amount + initialAmount;
-              allProducts.splice(index, 1)
+          if (cartInfo.id !== 0) {
+            const allProducts = [...cartInfo.products]
+            allProducts.map((item, index) => {
+              if (item.productId === id) {
+                initialAmount = item.amount + initialAmount;
+                allProducts.splice(index, 1)
+              }
+              return 0
+            })
+            const idCart = cartInfo.id
+            const product = {
+              idUser: userInfo.id,
+              products: [
+                ...allProducts,
+                {
+                  productId: id,
+                  amount: initialAmount,
+                  type: type
+                }
+              ]
             }
-            return 0
-          })
-          const idCart = cartInfo.id
-          const product = {
-            idUser: userInfo.id,
-            products: [
-              ...allProducts,
-              {
-                productId: id,
-                amount: initialAmount,
-                type:type
-              }
-            ]
+            dispatch(updateCart(idCart, product, (res) => {
+              if (res) setNotifi(true)
+            }))
           }
-          dispatch(updateCart(idCart, product, (res) => {
-            if (res) setNotifi(true)
-          }))
-        }
-        else {
-          const product = {
-            idUser: userInfo.id,
-            products: [
-              {
-                productId: id,
-                amount: initialAmount,
-                type:type
-              }
-            ]
+          else {
+            const product = {
+              idUser: userInfo.id,
+              products: [
+                {
+                  productId: id,
+                  amount: initialAmount,
+                  type: type
+                }
+              ]
+            }
+            dispatch(addToCart(product, (res) => {
+              if (res) setNotifi(true)
+            }))
           }
-          dispatch(addToCart(product, (res) => {
-            if (res) setNotifi(true)
-          }))
-        }
       } else {
-        setNotifi(true)
+        alert('Vui lòng chọn loại sản phẩm')
       }
-    }else{
-      alert('xin hay chon loai san pham')
+    } else {
+      setNotifi(true)
     }
   }
 
@@ -129,41 +152,19 @@ const SingleProduct = () => {
     <article className='grid'>
       <div className="grid__row container__content">
         <div className='singleProduct'>
-          <div className="singleProduct__container-img">
-            <div className='singleProduct__container-img-header'>
-              <div className='singleProduct__container-single-img'
-                style={{ backgroundImage: `url(${image})` }}
-              ></div>
-            </div>
-            <div className="singleProduct__container-list-img">
-              <button className="singleProduct__container-list__btn singleProduct__container-list--btnLeft">
-                <i className='singleProduct__container-list__btn-icon'><RiArrowLeftSLine /></i>
-              </button>
-              <div className="singleProduct__container-list-img__wrap">
-                <img className='singleProduct__container-img-item' src="https://cf.shopee.vn/file/dad4b00d805cb3482aea43cf030ee1e2_tn" alt="" />
-                <img className='singleProduct__container-img-item' src="https://cf.shopee.vn/file/dad4b00d805cb3482aea43cf030ee1e2_tn" alt="" />
-                <img className='singleProduct__container-img-item' src="https://cf.shopee.vn/file/dad4b00d805cb3482aea43cf030ee1e2_tn" alt="" />
-                <img className='singleProduct__container-img-item' src="https://cf.shopee.vn/file/dad4b00d805cb3482aea43cf030ee1e2_tn" alt="" />
-                <img className='singleProduct__container-img-item' src="https://cf.shopee.vn/file/dad4b00d805cb3482aea43cf030ee1e2_tn" alt="" />
-                <img className='singleProduct__container-img-item' src="https://cf.shopee.vn/file/dad4b00d805cb3482aea43cf030ee1e2_tn" alt="" />
-              </div>
-              <button className="singleProduct__container-list__btn singleProduct__container-list--btnRight">
-                <i className='singleProduct__container-list__btn-icon'><RiArrowRightSLine /></i>
-              </button>
-            </div>
-          </div>
+          <ImageContainer image={image} />
           <div className="singleProduct-wrap">
             <div className="singleProduct__title">{name}</div>
             <div className="singleProduct__review">
               <div className="singleProduct__review-star">
                 {
-                  [...Array(JSON.parse(starRating))].map((star, i) => {
-                    if (i + 1 === JSON.parse(starRating) && i + 1 < 5) {
+                  [...Array(starRating*1)].map((star, i) => {
+                    if (i + 1 === starRating*1 && i + 1 < 5) {
                       return (
                         <span key={i}>
                           <i key={i} className="home-product-item__star--gold"><FaStar /></i>
                           {
-                            [...Array(5 - JSON.parse(starRating))].map((star2, index) => {
+                            [...Array(5 - starRating*1)].map((star2, index) => {
                               return <i className="home-product-item__star--disable" key={index}><FaStar /></i>
                             })
                           }
@@ -197,6 +198,8 @@ const SingleProduct = () => {
                 {description}
               </span>
             </div>
+
+            <a href='#comment' className='category__label'>Đánh giá sản phẩm</a>
 
             <div className={`singleProduct__type ${types.length === 0 && 'singleProduct__type--hide'}`}>
               <span className='category__label'>Loại: </span>
@@ -233,9 +236,13 @@ const SingleProduct = () => {
                 <i className='singleProduct__button-add-icon'><FaCartPlus /></i>
                 <span>Thêm vào giỏ hàng</span>
               </button>
-              <button className="singleProduct__button-selling btn btn--primary">Mua ngay</button>
+              <button onClick={e => handleClickSaleNow(id)} className="singleProduct__button-selling btn btn--primary">Mua ngay</button>
             </div>
           </div>
+        </div>
+        {/* <Slider/> */}
+        <div id='comment' className='singlePro__comment'>
+          <Comments />
         </div>
       </div>
       {

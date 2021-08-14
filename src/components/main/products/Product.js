@@ -42,13 +42,13 @@ const Product = (
             <div className="home-product-item__rating">
               {
                 
-                [...Array(JSON.parse(starRating))].map((star, i) =>{
-                  if(i+1 === JSON.parse(starRating) && i+1 < 5){
+                [...Array(starRating*1)].map((star, i) =>{
+                  if(i + 1 === starRating*1 && i+1 < 5){
                     return (
                       <span key={i}>
                         <i key={i} className="home-product-item__star--gold"><FaStar/></i>
                         {
-                          [...Array(5 - JSON.parse(starRating))].map((star2, index)=>{
+                          [...Array(5 - starRating*1)].map((star2, index)=>{
                             return <i key={index} className="home-product-item__star--disable"><FaStar/></i>
                           })
                         }

@@ -8,11 +8,13 @@ import CheckoutItems from '../components/cart/checkout.items';
 import {useSelector} from 'react-redux'
 import HeaderSecond from '../components/header/HeaderSecond';
 
+
 const Checkout = () => {
   const [showModal, setShowModal] = useState(false)
   const [carts, setCarts] = useState([])
   const [infoCustomer, setInfoCustomer] = useState({address:''});
   const users = useSelector(state => state.lo.users);
+
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('login'))
@@ -25,6 +27,8 @@ const Checkout = () => {
     const order = JSON.parse(localStorage.getItem('order'))
     setCarts(order)
   }, []);
+
+
 
   return (
     <section className='grid'>

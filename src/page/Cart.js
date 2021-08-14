@@ -197,7 +197,7 @@ const Cart = () => {
         <div className='cart__main main-center'>
           <div>
             <h1 className='main-center-title'>Giỏ hàng của bạn đang trống hãy thêm sản phẩm vào giỏ hàng</h1>
-            <Link to='/' className='btn btn--normal'>Quay lại</Link>
+            <Link to='/' className='btn btn--normal'>Thêm sản phẩm vào giỏ hàng</Link>
           </div>
         </div>
       </section>

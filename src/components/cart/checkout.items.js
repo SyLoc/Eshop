@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import {addOrder,updateCart} from '../../actions/ActionWithProduct'
 import {useDispatch, useSelector} from 'react-redux'
 import NotifiModal from '../modals/NotifiModal'
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const CheckoutItems = ({carts, infoCustomer}) => {
   const dispatch = useDispatch();
@@ -11,6 +11,7 @@ const CheckoutItems = ({carts, infoCustomer}) => {
   const [notifi, setNotifi] = useState(false)
   const [check, setCheck] = useState(false)
   const history = useHistory()
+  const location = useLocation()
   
 
   const covert = (value) => {
@@ -39,6 +40,7 @@ const CheckoutItems = ({carts, infoCustomer}) => {
     arr.pop()
     return arr.join('')
   }
+
 
   let itemsPrice = carts.reduce((a,b) => a + convertStr(b.priceCurrent) * b.amount, 0)
   let shippingPrice = itemsPrice >= 2000 ? 0.000 : 40.000
@@ -90,19 +92,18 @@ const CheckoutItems = ({carts, infoCustomer}) => {
         if(res){
           setNotifi(true)
           localStorage.removeItem('order')
-          deleteItemInCart(products)
+          if(location.pathname === '/checkout'){
+            deleteItemInCart(products)
+          }
           setTimeout(() =>{
             history.push('/')
           }, 1500)
         }
       }))
-
-
     }else{
       setNotifi(true)
     }
   }
-
 
   const deleteItemInCart = (products) => {
     if(products.length === cartInfo.products.length){

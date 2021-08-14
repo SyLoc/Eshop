@@ -458,3 +458,17 @@
   color: var(--text-color);
   line-height: 1.8rem;
 }
+
+
+/* =================== notifi-content ================= */
+
+.notifi-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.notifi__input-rating{
+  display: none;
+}

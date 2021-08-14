@@ -547,3 +547,14 @@ html{
 .dropdown--show .dropdown__overlay{
   border: 1px solid var(--primary-color);
 }
+
+/* ======================= Slider ==================== */
+
+.slider-wrap{
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* .slider-content{
+  height: 0;
+} */

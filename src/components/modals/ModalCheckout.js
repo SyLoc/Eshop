@@ -100,7 +100,7 @@ const ModalCheckout = ({ setShowModal }) => {
     }
   }, [address,focused]);
 
-  const closeModal = () =>{
+  const handleCloseModal = () =>{
     reset()
     setShowModal(false)
   }
@@ -276,7 +276,7 @@ const ModalCheckout = ({ setShowModal }) => {
         </div>
 
         <div className="auth-form__controls auth-form__controls--size-s">
-          <button type='button' onClick={closeModal} className="btn btn--normal auth-form__controls-back">TRỞ LẠI</button>
+          <button type='button' onClick={handleCloseModal} className="btn btn--normal auth-form__controls-back">TRỞ LẠI</button>
           <button className="btn btn--primary">HOÀN THÀNH</button>
         </div>
       </form>
