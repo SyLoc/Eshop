@@ -1,9 +1,22 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { FaStar } from 'react-icons/fa'
 
-const Rating = () => {
+const Rating = ({setRatings, ratings}) => {
   const [rating, setRating] = useState(0)
   const [hover, setHover] = useState(0)
+
+  useEffect(() => {
+    setRatings(rating)
+  }, [rating, setRatings]);
+
+  useEffect(() => {
+    if(ratings === 0) {
+      setRating(0)
+    }else{
+      setRating(ratings)
+    }
+  }, [ratings]);
+
   return (
     <div className='rating'>
       {

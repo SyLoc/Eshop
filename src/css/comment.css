@@ -3,7 +3,7 @@
 
 .comment{
   width: 50%;
-  /* background: #fbf8f8; */
+  background: #fbf8f8;
   border-radius: 5px;
   padding: 30px;
 }
@@ -65,7 +65,6 @@
   font-weight: 600;
   line-height: 2rem;
   color: var(--text-color);
-  text-transform: capitalize;
 }
 
 .comment-label{
@@ -117,7 +116,6 @@
   border-radius: 5px;
   font-size: 1.4rem;
   color: var(--text-label);
-  text-transform: capitalize;
   padding: 10px;
   background: #f1f1f1;
 }

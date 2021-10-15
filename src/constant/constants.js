@@ -43,3 +43,13 @@ export const GET_ORDER = 'GET_ORDER'
 
 export const UPDATE_ORDER = 'UPDATE_ORDER'
 
+// comment
+
+export const GET_COMMENTS = 'GET_COMMENTS'
+
+export const NO_COMMENTS = 'NO_COMMENTS'
+
+export const ADD_COMMENT = 'ADD_COMMENT'
+
+
+export const UPDATE_COMMENTS = 'UPDATE_COMMENTS'

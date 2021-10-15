@@ -555,6 +555,22 @@ html{
   width: 100%;
 }
 
-/* .slider-content{
-  height: 0;
-} */
+/* ======================== arrow ======================= */
+
+.rec.rec-arrow{
+  background: rgba(0, 0, 0, 0.2);
+  height: 40px;
+  min-width: 20px;
+  width: 30px;
+  border-radius: 0px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rec.rec-arrow:hover{
+  background-color: rgba(0, 0, 0, .3) !important;
+}
+
+
