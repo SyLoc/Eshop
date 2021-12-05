@@ -76,6 +76,7 @@ html{
   align-items: center;
   padding: 12px 22px;
   border-radius: var(--border-radius);
+  width: 100%;
 }
 
 .home-filter__label{
@@ -153,6 +154,7 @@ html{
 
 .home-products{
   margin-bottom: 10px;
+  padding: 0;
 }
 
 .home-products__no-products{

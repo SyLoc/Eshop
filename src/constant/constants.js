@@ -53,3 +53,17 @@ export const ADD_COMMENT = 'ADD_COMMENT'
 
 
 export const UPDATE_COMMENTS = 'UPDATE_COMMENTS'
+
+//admin
+
+
+export const GET_LIST_OF_PRODUCT = 'GET_LIST_OF_PRODUCT'
+
+export const GET_LIST_OF_PRODUCT_1 = 'GET_LIST_OF_PRODUCT_1'
+
+export const GET_LIST_OF_USERS = 'GET_LIST_OF_USERS'
+
+export const GET_LIST_OF_USERS_1 = 'GET_LIST_OF_USERS_1'
+
+export const GET_LIST_OF_ORDER = 'GET_LIST_OF_ORDER'
+

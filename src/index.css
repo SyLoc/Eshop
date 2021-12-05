@@ -40,6 +40,7 @@ html{
   max-width: 100%;
   margin: 0 auto;
   overflow-x: hidden;
+  padding: 0;
 }
 
 .grid__full-width{
@@ -399,7 +400,7 @@ html{
 /* sale__header */
 
 .sale__header{
-  height: 80px;
+  height: 120px;
   background-color: var(--white-color);
   display: flex;
   align-items: center;

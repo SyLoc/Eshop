@@ -4,22 +4,17 @@ import Filter from '../components/main/Filter';
 import Category from '../components/main/Category';
 import Footer from '../components/footer/Footer';
 import Pagination from '../components/main/Pagination';
+import {Row, Col} from 'antd'
 
 const Home = () => {
 
   return (
     <main className="container grid">
       <section className="grid__row container__content">
-        <div className="grid__column-2">
-          <Category/>
-        </div>
-        <div className="grid__column-10">
-          <Filter/>
-          <ProductList/>
-          <Pagination/>
-        </div>
+        <Filter/>
+        <ProductList/>
+        <Pagination/>
       </section>
-      <Footer/>
     </main>
   );
 };

@@ -63,7 +63,7 @@ const Checkout = () => {
         <div className="modal__overlay"></div>
         <ModalCheckout setShowModal={setShowModal} />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </section>
   );
 };

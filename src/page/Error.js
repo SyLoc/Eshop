@@ -9,7 +9,7 @@ const style = {
   justifyContent: 'center'
 }
 
-const Error = () => {
+const Error = ({ path='/' }) => {
   const [loading, setLoading] = useState(true)
   
   useEffect(() => {
@@ -30,7 +30,7 @@ const Error = () => {
     <section style={style} className='section-center' >
       <div>
         <h1>This is Error Page</h1>
-        <Link className='btn' to='/'> Back home</Link>
+        <Link className='btn' to={path}> Back home</Link>
       </div>
     </section>
   );

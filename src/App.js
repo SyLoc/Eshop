@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { ThemeProvider } from 'styled-components';
 import {
   BrowserRouter as Router, 
   Switch,
@@ -14,7 +15,7 @@ import Header from './page/Header';
 
 
 // page
-import Home from './page/Home'
+// import Home from './page/Home'
 import About from './page/About'
 import Error from './page/Error'
 import Contacts from './page/Contacts'
@@ -24,6 +25,15 @@ import Cart from './page/Cart';
 import Checkout from './page/Checkout';
 import User from './page/User';
 
+import Home from './user/Containers/Home';
+// import Footer from './user/Containers/Home/components/Footer';
+import Footer from './components/footer/Footer';
+import AllProduct from './page/AllProduct';
+import Routes from 'admin/routes';
+
+import theme from './styles/theme';
+
+import Main from 'user/Containers/Home/components/Main';
 // ========================
 
 import {useSelector} from 'react-redux'
@@ -34,12 +44,15 @@ function App() {
 
   return (
     <main className="main">
+      <ThemeProvider theme={theme}>
       <Router>
         <Modal/>
-        <Header/>
+        {/* <Header/> */}
+        {/* <Main/> */}
         <Switch>
           <Route exact path='/'>
             <Home/>
+            {/* <Routes/> */}
           </Route>
           <Route path='/cart' render={() =>{
             return login ? <Cart/> : <Redirect to='/'/>
@@ -53,6 +66,9 @@ function App() {
             return login ? <User/> : <Redirect to='/'/>
           }}>
           </Route>
+          <Route path='/all-product'>
+              <AllProduct/>
+          </Route>
           <Route path='/about'>
               <About/>
           </Route>
@@ -62,11 +78,16 @@ function App() {
           <Route path='/SingleProduct/:id'>
               <SingleProduct/>
           </Route>
+          <Route path='/admin'>
+            <Routes/>
+          </Route>
           <Route path='*'>
               <Error/>
           </Route>
         </Switch>
       </Router>
+      {/* <Footer/> */}
+      </ThemeProvider>
     </main>
   );
 }
